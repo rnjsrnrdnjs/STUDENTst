@@ -1,10 +1,48 @@
 {% extends 'index.html' %} {% block content %}
-<div>
-	
+<div class="board" style="background: url(/photo/room.jpeg) no-repeat; background-size: 100% 100%;">
+    <div class="calender">
+        <div>
+            시험 날짜를
+        </div>
+        <div>
+            체크해봐요.
+        </div>
+        <div>
+            Click Calender!
+        </div>
+    </div>
+
+    <div class="memo">
+        <div>
+            할일들을
+        </div>
+        <div>
+            이곳에 적어두세요.
+        </div>
+        <div>
+            Click PostIt!
+        </div>
+    </div>
+
+    <div class="note">
+        <div>
+            기록은 중요한 
+        </div>
+        <div>
+            습관이에요.
+        </div>
+        <div>
+            Click Note!
+        </div>
+    </div>
 </div>
 
 {% endblock %} {% block script %}
 <script>
-
+    const header = document.getElementsByClassName('header')[0];
+    header.style.display = 'flex';
+    const nav = document.getElementsByClassName('nav')[0];
+    nav.style.display = 'flex';
+    nav.childNodes[5].style.borderBottom = '3px solid aquamarine';
 </script>
 {% endblock %}

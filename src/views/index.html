@@ -1,30 +1,54 @@
-  
 <!DOCTYPE html>
 <html>
-	<head>
-		<meta charset="UTF-8" />
-		<title></title>
-		<meta name="viewport" content="width=device-width,user-scalable=no" />
-		<meta http-equiv="X-UA-Compatible" content="IE=edge" />
-		<link rel="stylesheet" href="/index.css" />
-	</head>
-	<body>
-		<div class="container">
-			<div class="header" style="disaplay:none;">
-				
-			</div>
-			<div class="main">
-				{% block content %}
-				{% endblock %}
-			</div>
-		</div>
+    <head>
+        <meta charset="UTF-8" />
+        <title></title>
+        <meta name="viewport" content="width=device-width,user-scalable=no" />
+        <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+        <link rel="stylesheet" href="/index.css" />
+    </head>
+    <body>
+        <div class="container">
+            <div class="main">
+                <div class="header" style="display: none;">
+                        <img src="/photo/logo.png" style="width: 50px; height: 50px;" />공시생<span
+                            style="color: orange;"
+                            >s</span
+                        ><span style="color: red;">t</span>
+                    </div>
+				<div class="nav" style="display:none;">
+					<div class="navOne" onClick="location.href='/board'">home
+					</div>
+					<div class="navTwo" onClick="location.href='/timer'">timer
+					</div>
+					<div class="navThree" onClick="location.href='/room'">room
+					</div>
+					<div class="navFour" onClick="location.href='/setting'">설정
+					</div>
+				</div>
+                {% block content %} {% endblock %}
+            </div>
+        </div>
 
-
-		<div style="display:none;">아이콘 제작자 <a href="https://www.flaticon.com/kr/authors/photo3idea-studio" title="photo3idea_studio">photo3idea_studio</a> from <a href="https://www.flaticon.com/kr/" title="Flaticon">www.flaticon.com</a></div>
-		<div style="display:none;">아이콘 제작자 <a href="" title="Payungkead">Payungkead</a> from <a href="https://www.flaticon.com/kr/" title="Flaticon">www.flaticon.com</a></div>
-		<script>
-			history.pushState(null, null, location.href);
-		</script>
-		{% block script %} {% endblock %}
-	</body>
+        <div style="display: none;">
+            아이콘 제작자
+            <a
+                href="https://www.flaticon.com/kr/authors/photo3idea-studio"
+                title="photo3idea_studio"
+                >photo3idea_studio</a
+            >
+            from <a href="https://www.flaticon.com/kr/" title="Flaticon">www.flaticon.com</a>
+        </div>
+        <div style="display: none;">
+            아이콘 제작자 <a href="" title="Payungkead">Payungkead</a> from
+            <a href="https://www.flaticon.com/kr/" title="Flaticon">www.flaticon.com</a>
+        </div>
+		<div style="display:none;">Icons made by <a href="https://www.freepik.com" title="Freepik">Freepik</a> from <a href="https://www.flaticon.com/" title="Flaticon">www.flaticon.com</a></div>
+		<div style="display:none;">Icons made by <a href="https://www.flaticon.com/authors/vectors-market" title="Vectors Market">Vectors Market</a> from <a href="https://www.flaticon.com/" title="Flaticon">www.flaticon.com</a></div>
+        <script>
+			
+            history.pushState(null, null, location.href);
+        </script>
+        {% block script %} {% endblock %}
+    </body>
 </html>

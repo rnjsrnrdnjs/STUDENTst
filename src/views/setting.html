@@ -1,10 +1,32 @@
 {% extends 'index.html' %} {% block content %}
-<div>
+<div class="boardBG">
+	<div class="boardShadow">
+		지금도 시간은 가고있어요...
+	</div>
+	<div class="boardNeedle">
+	</div>
+</div>
+<div class="board" >
 	
 </div>
 
+
 {% endblock %} {% block script %}
 <script>
-
+const header=document.getElementsByClassName('header')[0];
+	header.style.display="flex";
+	const nav=document.getElementsByClassName('nav')[0];
+	nav.style.display="flex";
+	nav.childNodes[7].style.borderBottom="3px solid aquamarine";
+	
+	const board=document.getElementsByClassName('board')[0];
+	const boardShadow=document.getElementsByClassName('boardShadow')[0];
+	
+	board.addEventListener('scroll',()=>{
+		boardShadow.classList.add('boardShadow2');
+		setTimeout(()=>{
+			boardShadow.classList.remove('boardShadow2');
+		},500);
+	});
 </script>
 {% endblock %}

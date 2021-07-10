@@ -1,10 +1,43 @@
 {% extends 'index.html' %} {% block content %}
-<div>
+
+<div class="board" >
+	<div style="justify-content: space-evenly;margin-top: 3vh;">
+		<div>
+			타이머
+		</div>
+		<div>
+			랭킹
+		</div>
+	</div>
 	
+	<div style="    margin-top: 3vh;
+    background: url(/photo/timer.png) no-repeat;
+    background-size: 100% 100%;
+    width: 80%;
+    height: 80%;
+    margin-left: 10%;flex-direction: column;" >
+		<div style="border:1px solid red;width: 53%;
+    margin-top: 17%;
+    margin-left: 11%;
+    height: 32%;
+    background: #657B6E;">
+			
+		</div>
+		<div style="border:1px solid red;">
+			
+		</div>
+	</div>
 </div>
+
 
 {% endblock %} {% block script %}
 <script>
-
+const header=document.getElementsByClassName('header')[0];
+	header.style.display="flex";
+	const nav=document.getElementsByClassName('nav')[0];
+	nav.style.display="flex";
+	nav.childNodes[3].style.borderBottom="3px solid aquamarine";
+	
+	
 </script>
 {% endblock %}
