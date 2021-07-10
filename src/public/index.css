@@ -1,0 +1,68 @@
+body{
+	margin:0 auto;
+	box-sizing:border-box;
+}
+.container {
+	margin: 0 auto;
+    max-width: 1024px;
+    display: flex;
+}
+.container *{
+	box-sizing:border-box;
+	display:flex;
+}
+
+.main{
+	width:100%;
+}
+.first{
+	flex-direction:column;
+	background:url('/photo/firstBG.jpg') no-repeat;
+	background-size:100% 100%;
+	width:100%;
+	height:100vh;
+}
+.logo{
+	    height: 25vh;
+    justify-content: center;
+    align-items: flex-end;
+    font-weight: bold;
+	font-size: 1.4rem;
+}
+.login{
+	    margin-top: 8%;
+    justify-content: center;
+	flex-direction:column;
+	align-items: center;
+}
+.women{
+	background:url('/photo/firstWomen.png') no-repeat;
+	background-size:100% 100%;
+	position:absolute;
+	width:20%;
+	height:30%;
+	top:56%;
+	left:30%;
+	animation:moveWomen 8s infinite linear;
+}
+
+@keyframes moveWomen{
+	0%{
+		transform:translatex(25px) skewx(-3deg);
+	}
+	20%{
+		transform:translatex(50px) skewx(-6deg);
+	}
+	40%{
+		transform:translatex(75px) skewx(-9deg);
+	}
+	60%{
+		transform:translatex(100px) skewx(-12deg);
+	}
+	80%{
+		transform:translatex(0px);
+	}
+	100%{
+		transform:translatex(0px);
+	}
+}
