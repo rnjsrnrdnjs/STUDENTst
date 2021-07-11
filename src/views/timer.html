@@ -1,81 +1,254 @@
 {% extends 'index.html' %} {% block content %}
 
-<div class="board" >
-	<div style="justify-content: space-evenly;margin-top: 3vh;">
-		<div id="navTimer" >
-			타이머
-		</div>
-		<div id="navRank">
-			랭킹
-		</div>
-	</div>
-	
-	<div id="timer" style="margin-top: 3vh;
-    justify-content: center;
-    align-items: center;
-    background: #F7F6F4;
-    width: 80%;
-    border-radius: 50px;
-    border: 1px solid #D7D3D2;
-    height: 80%;
-    margin-left: 10%;
-    flex-direction: column;box-shadow: 5px 5px 5px 5px grey;">
-		
-		
-		<div style=" border-radius: 50px;
-    height: 90%;
-    width: 90%;
-    border: 1px solid #D7D3D2;
-    background: #A5DCD7;flex-direction: column;
-    align-items: center;">
-			<div id="timerTime" style="    border: 1px solid #CCD8D6;
-    margin-top: 10%;
-    background: #BAC7C7;
-    width: 70%;
-    height: 40%;
-    border-radius: 10px;align-items: center;
-    justify-content: center;
-    ">
-				09:00
-			</div>
-			<div style="    text-shadow: 0px 0px;
-    border: 1px solid #D7D3D2;
-    color: white;
-    width: 62%;
-    justify-content: space-evenly;
-    margin-top: 3vh;
-    border-radius: 10px;
-    background: #525051;">
-				<div id="timerStart" style="padding: 2vw;cursor:pointer;">
-					start
-				</div>
-				<div id="timerReset" style="padding: 2vw;
-    border-left: 1px solid black;
-    border-right: 1px solid black;cursor:pointer;">
-					reset
-				</div>
-				<div id="timerEnd" style="padding: 2vw;cursor:pointer;">
-					end
-				</div>
-			</div>
-		</div>
-	</div>
-	
-	<div id="rank" style="display:none;">
-		
-	</div>
-	
-</div>
+<div class="board">
+    <div style="justify-content: space-evenly; margin-top: 3vh;">
+        <div
+            id="navTimer"
+            style="align-items: center; border-bottom: 2px solid aqua; cursor: pointer;"
+        >
+            <img src="/photo/stopwatch2.png" style="width: 30px; height: 30px;" />타이머
+        </div>
+        <div id="navRank" style="align-items: center; cursor: pointer;">
+            <img src="/photo/ranking.png" style="width: 30px; height: 30px;" />랭킹
+        </div>
+    </div>
 
+    <div
+        id="timer"
+        style="
+            margin-top: 3vh;
+            justify-content: center;
+            align-items: center;
+            background: #f7f6f4;
+            width: 80%;
+            border-radius: 50px;
+            border: 1px solid #d7d3d2;
+            height: 80%;
+            margin-left: 10%;
+            flex-direction: column;
+            box-shadow: 5px 5px 5px 5px grey;
+        "
+    >
+        <div
+            style="
+                border-radius: 50px;
+                height: 90%;
+                width: 90%;
+                border: 1px solid #d7d3d2;
+                background: #a5dcd7;
+                flex-direction: column;
+                align-items: center;
+            "
+        >
+            <div
+                id="timerTime"
+                style="
+                    border: 1px solid #ccd8d6;
+                    margin-top: 10%;
+                    background: #bac7c7;
+                    width: 70%;
+                    height: 40%;
+                    border-radius: 10px;
+                    align-items: center;
+                    justify-content: center;
+                "
+            >
+                09:00
+            </div>
+            <div
+                style="
+                    text-shadow: 0px 0px;
+                    border: 1px solid #d7d3d2;
+                    color: white;
+                    width: 62%;
+                    justify-content: space-evenly;
+                    margin-top: 3vh;
+                    border-radius: 10px;
+                    background: #525051;
+                "
+            >
+                <div id="timerStart" style="padding: 2vw; cursor: pointer;">
+                    start
+                </div>
+                <div
+                    id="timerReset"
+                    style="
+                        padding: 2vw;
+                        border-left: 1px solid black;
+                        border-right: 1px solid black;
+                        cursor: pointer;
+                    "
+                >
+                    reset
+                </div>
+                <div id="timerEnd" style="padding: 2vw; cursor: pointer;">
+                    end
+                </div>
+            </div>
+            <div
+                style="
+                    flex-direction: column;
+                    margin-top: 2vh;
+                    font-size: 0.8rem;
+                    color: lightyellow;
+                "
+            >
+                <div>
+                    1초라는 물결이 모여
+                </div>
+                <div style="margin-bottom: 1vh;">
+                    언젠가 파도가 된다면
+                </div>
+                <div>
+                    그 물결은 너가 원하는
+                </div>
+                <div>
+                    방향으로 흐를거야.
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div id="rank" style="display: none; margin-top: 3vh; padding: 2vw; ">
+        <div style="flex-direction: column; width: 100%;">
+            <div id="meRank" style="align-items: center;width:100%;border-bottom:1px solid #d2d2d2; margin-bottom:2vh;">
+                <span style=" flex: 1;"><img src="/photo/meMedal.png" style="width: 30px; height: 30px;"
+                    /></span>
+                    <span style="margin-left:2vw;flex: 1;">
+                        <img src="/photo/profile.png" style="width: 30px; height: 30px;border: 1px solid #d2d2d2;border-radius: 50%; 
+     padding: 2px;"
+                    /></span>
+                    <span style="flex: 3;margin-left:1vw;">김xx</span>
+					<div style="flex:6;font-size:0.7rem;">
+						
+                    <span style="margin-left:4vw;"> time-</span>
+                    <span style="margin-left:1vw;"> 2h:</span>
+                    <span> 2m:</span>
+                    <span > 2s</span>
+					</div>
+					<span style="margin-left:2vw;flex:2;font-size:0.7rem;"> 상위 13.1%</span>
+            </div>
+			
+            <div style="flex-direction:column; margin-bottom:1vh;">
+                <div id="oneRank" style="align-items: center;">
+                    <span style="    flex: 1;"><img src="/photo/oneMedal.png" style="width: 30px; height: 30px;"
+                    /></span>
+                    <span style="    flex: 1;">
+                        <img src="/photo/profile.png" style="width: 30px; height: 30px;border: 1px solid #d2d2d2;border-radius: 50%; 
+     padding: 2px;"
+                    /></span>
+                    <span style="flex: 3;margin-left:1vw;"> n수생 김xx</span>
+					<div style="flex:4;">
+						
+                    <span style="margin-left:4vw;"> time-</span>
+                    <span style="margin-left:1vw;"> 2h:</span>
+                    <span style=""> 2m:</span>
+                    <span style=""> 2s</span>
+					</div>
+                </div>
+			</div>
+				
+			<div style="flex-direction:column;margin-bottom:1vh;">
+                <div id="twoRank" style="align-items: center;">
+                    <span style="    flex: 1;"><img src="/photo/twoMedal.png" style="width: 30px; height: 30px;"
+                    /></span>
+                    <span style="    flex: 1;">
+                        <img src="/photo/profile.png" style="width: 30px; height: 30px;border: 1px solid #d2d2d2;border-radius: 50%; 
+     padding: 2px;"
+                    /></span>
+                    <span style="flex: 3;margin-left:1vw;"> n수생 김xx</span>
+					<div style="flex:4;">
+						
+                    <span style="margin-left:4vw;"> time-</span>
+                    <span style="margin-left:1vw;"> 2h:</span>
+                    <span style=""> 2m:</span>
+                    <span style=""> 2s</span>
+					</div>
+                </div>
+			</div>
+			<div style="flex-direction:column;margin-bottom:1vh;">
+                <div id="threeRank" style="align-items: center;">
+                    <span style="    flex: 1;"><img src="/photo/threeMedal.png" style="width: 30px; height: 30px;"
+                    /></span>
+                    <span style="    flex: 1;">
+                        <img src="/photo/profile.png" style="width: 30px; height: 30px;border: 1px solid #d2d2d2;border-radius: 50%; 
+     padding: 2px;"
+                    /></span>
+                    <span style="flex: 3;margin-left:1vw;"> n수생 김xx</span>
+					<div style="flex:4;">
+						
+                    <span style="margin-left:4vw;"> time-</span>
+                    <span style="margin-left:1vw;"> 2h:</span>
+                    <span style=""> 2m:</span>
+                    <span style=""> 2s</span>
+					</div>
+                </div>
+			</div>
+			<div style="flex-direction:column;margin-bottom:1vh;">
+                <div id="elseRank" style="align-items: center;">
+                    <span style="    flex: 1;"><img src="/photo/elseMedal.png" style="width: 30px; height: 30px;"
+                    /></span>
+                    <span style="    flex: 1;">
+                        <img src="/photo/profile.png" style="width: 30px; height: 30px;border: 1px solid #d2d2d2;border-radius: 50%; 
+     padding: 2px;"
+                    /></span>
+                    <span style="flex: 3;margin-left:1vw;"> n수생 김xx</span>
+					<div style="flex:4;">
+						
+                    <span style="margin-left:4vw;"> time-</span>
+                    <span style="margin-left:1vw;"> 2h:</span>
+                    <span style=""> 2m:</span>
+                    <span style=""> 2s</span>
+					</div>
+                </div>
+			</div>
+            <div style="flex-direction:column;margin-bottom:1vh;">
+                <div id="elseRank" style="align-items: center;">
+                    <span style="    flex: 1;"><img src="/photo/elseMedal.png" style="width: 30px; height: 30px;"
+                    /></span>
+                    <span style="    flex: 1;">
+                        <img src="/photo/profile.png" style="width: 30px; height: 30px;border: 1px solid #d2d2d2;border-radius: 50%; 
+     padding: 2px;"
+                    /></span>
+                    <span style="flex: 3;margin-left:1vw;"> n수생 김xx</span>
+					<div style="flex:4;">
+						
+                    <span style="margin-left:4vw;"> time-</span>
+                    <span style="margin-left:1vw;"> 2h:</span>
+                    <span style=""> 2m:</span>
+                    <span style=""> 2s</span>
+					</div>
+                </div>
+			</div>  
+        </div>
+    </div>
+</div>
 
 {% endblock %} {% block script %}
 <script>
-const header=document.getElementsByClassName('header')[0];
-	header.style.display="flex";
-	const nav=document.getElementsByClassName('nav')[0];
-	nav.style.display="flex";
-	nav.childNodes[3].style.borderBottom="3px solid aquamarine";
-	
-	
+    const header = document.getElementsByClassName('header')[0];
+    header.style.display = 'flex';
+    const nav = document.getElementsByClassName('nav')[0];
+    nav.style.display = 'flex';
+    nav.childNodes[3].style.borderBottom = '3px solid aquamarine';
+
+    const navTimer = document.getElementById('navTimer');
+    const navRank = document.getElementById('navRank');
+    const timer = document.getElementById('timer');
+    const rank = document.getElementById('rank');
+
+    navTimer.addEventListener('click', () => {
+        timer.style.display = 'flex';
+        rank.style.display = 'none';
+        navTimer.style.borderBottom = '2px solid aqua';
+        navRank.style.borderBottom = '0px solid aqua';
+    });
+
+    navRank.addEventListener('click', () => {
+        timer.style.display = 'none';
+        rank.style.display = 'flex';
+        navTimer.style.borderBottom = '0px solid aqua';
+        navRank.style.borderBottom = '2px solid aqua';
+    });
 </script>
 {% endblock %}

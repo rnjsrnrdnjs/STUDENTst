@@ -1,32 +1,129 @@
 {% extends 'index.html' %} {% block content %}
 <div class="boardBG">
-	<div class="boardShadow">
-		지금도 시간은 가고있어요...
-	</div>
-	<div class="boardNeedle">
-	</div>
+    <div class="boardShadow">
+        지금도 시간은 가고있어요...
+    </div>
+    <div class="boardNeedle"></div>
 </div>
-<div class="board" >
-	
-</div>
+<div class="board">
+    <div
+        id=""
+        style="
+            box-shadow: 2px 2px grey;
+            background: linear-gradient(90deg, white, transparent);
+            width: 100%;
+            height: 300px;
+            padding: 2vw;
+            flex-direction: column;
+            border-radius: 10px;
+        "
+    >
+        <div style="font-size: 0.8rem;">
+            <span style="">로그아웃</span> <span style="margin-left: 3vw;">계정삭제</span>
+        </div>
+        <div style="justify-content: center;">
+            <img
+                src="/photo/profile.png"
+                style="
+                    width: 100px;
+                    height: 100px;
+                    border: 1px solid #d2d2d2;
+                    border-radius: 50%;
+                    padding: 2vw;
+                "
+            />
+        </div>
+        <div style="margin-top: 3vh; justify-content: center;">
+            <span>n수생 닉네임</span><span style="margin-left:2vw;">변경</span> <span style="margin-left: 3vw;">공부시작- d+1</span>
+        </div>
+    </div>
 
+    <div
+        style="background: linear-gradient(90deg, white, transparent); width: 100%; height: 300px; flex-direction:column;margin-top:2vh; margin-bottom;2vh;"
+    >
+		<canvas id="line-chart" width="100%" height="80%"></canvas>
+    </div>
+    <div
+        style="
+            background: linear-gradient(90deg, white, transparent);
+            flex-direction: column;
+            height: 100px;
+        "
+    >
+        <div
+            style="
+                box-shadow: 2px 2px grey;
+                border-radius: 10px;
+                padding: 2vw;
+                cursor: pointer;
+                margin-bottom: 2vh;
+            "
+        >
+            내가쓴글
+        </div>
+        <div
+            style="
+                box-shadow: 2px 2px grey;
+                border-radius: 10px;
+                padding: 2vw;
+                cursor: pointer;
+                margin-bottom: 2vh;
+            "
+        >
+            내가쓴 댓글
+        </div>
+    </div>
+    <div style="background: linear-gradient(90deg, white, transparent); width: 100%;flex-direction:column;">
+		<div>
+			공시생st 개발자 090입니다.
+		</div>
+		<div>
+			잘부탁드립니다!
+		</div>
+		<div>
+			ver-1.0.0
+		</div>
+		<div>
+		email 090tree@gamil.com
+		</div>
+    </div>
+</div>
 
 {% endblock %} {% block script %}
 <script>
-const header=document.getElementsByClassName('header')[0];
-	header.style.display="flex";
-	const nav=document.getElementsByClassName('nav')[0];
-	nav.style.display="flex";
-	nav.childNodes[7].style.borderBottom="3px solid aquamarine";
-	
-	const board=document.getElementsByClassName('board')[0];
-	const boardShadow=document.getElementsByClassName('boardShadow')[0];
-	
-	board.addEventListener('scroll',()=>{
-		boardShadow.classList.add('boardShadow2');
-		setTimeout(()=>{
-			boardShadow.classList.remove('boardShadow2');
-		},500);
-	});
+    const header = document.getElementsByClassName('header')[0];
+    header.style.display = 'flex';
+    const nav = document.getElementsByClassName('nav')[0];
+    nav.style.display = 'flex';
+    nav.childNodes[7].style.borderBottom = '3px solid aquamarine';
+
+    const board = document.getElementsByClassName('board')[0];
+    const boardShadow = document.getElementsByClassName('boardShadow')[0];
+
+    board.addEventListener('scroll', () => {
+        boardShadow.classList.add('boardShadow2');
+        setTimeout(() => {
+            boardShadow.classList.remove('boardShadow2');
+        }, 500);
+    });
+	new Chart(document.getElementById("line-chart"), {
+  type: 'line',
+  data: {
+    labels: [1500,1600,1700,1750,1800,1850,1900,1950,1999,2050],
+    datasets: [{ 
+        data: [282,350,411,502,635,809,947,1402,3700,5267],
+        label: "월별 공부기록",
+        borderColor: "#8e5ea2",
+        fill: false
+      }
+    ]
+  },
+  options: {
+    title: {
+      display: true,
+      text: '공부 기록'
+    }
+  }
+});
 </script>
 {% endblock %}
