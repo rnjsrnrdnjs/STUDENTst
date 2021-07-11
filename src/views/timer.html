@@ -2,31 +2,69 @@
 
 <div class="board" >
 	<div style="justify-content: space-evenly;margin-top: 3vh;">
-		<div>
+		<div id="navTimer" >
 			타이머
 		</div>
-		<div>
+		<div id="navRank">
 			랭킹
 		</div>
 	</div>
 	
-	<div style="    margin-top: 3vh;
-    background: url(/photo/timer.png) no-repeat;
-    background-size: 100% 100%;
+	<div id="timer" style="margin-top: 3vh;
+    justify-content: center;
+    align-items: center;
+    background: #F7F6F4;
     width: 80%;
+    border-radius: 50px;
+    border: 1px solid #D7D3D2;
     height: 80%;
-    margin-left: 10%;flex-direction: column;" >
-		<div style="border:1px solid red;width: 53%;
-    margin-top: 17%;
-    margin-left: 11%;
-    height: 32%;
-    background: #657B6E;">
-			
-		</div>
-		<div style="border:1px solid red;">
-			
+    margin-left: 10%;
+    flex-direction: column;box-shadow: 5px 5px 5px 5px grey;">
+		
+		
+		<div style=" border-radius: 50px;
+    height: 90%;
+    width: 90%;
+    border: 1px solid #D7D3D2;
+    background: #A5DCD7;flex-direction: column;
+    align-items: center;">
+			<div id="timerTime" style="    border: 1px solid #CCD8D6;
+    margin-top: 10%;
+    background: #BAC7C7;
+    width: 70%;
+    height: 40%;
+    border-radius: 10px;align-items: center;
+    justify-content: center;
+    ">
+				09:00
+			</div>
+			<div style="    text-shadow: 0px 0px;
+    border: 1px solid #D7D3D2;
+    color: white;
+    width: 62%;
+    justify-content: space-evenly;
+    margin-top: 3vh;
+    border-radius: 10px;
+    background: #525051;">
+				<div id="timerStart" style="padding: 2vw;cursor:pointer;">
+					start
+				</div>
+				<div id="timerReset" style="padding: 2vw;
+    border-left: 1px solid black;
+    border-right: 1px solid black;cursor:pointer;">
+					reset
+				</div>
+				<div id="timerEnd" style="padding: 2vw;cursor:pointer;">
+					end
+				</div>
+			</div>
 		</div>
 	</div>
+	
+	<div id="rank" style="display:none;">
+		
+	</div>
+	
 </div>
 
 

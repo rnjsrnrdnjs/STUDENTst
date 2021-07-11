@@ -209,3 +209,22 @@ body {
 .homeFooter {
     flex-direction: column;
 }
+#timerTime{
+	font-size:3rem;
+}
+@media screen and (min-width: 767px) {
+	#timerTime{
+		font-size:8rem;
+	}
+}
+@media screen and (min-width: 1025px) {
+	#timerTime{
+		font-size: 10rem;
+	}
+}
+#navTimer{
+	
+}
+#navRank{
+	
+}
