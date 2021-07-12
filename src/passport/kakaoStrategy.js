@@ -13,7 +13,6 @@ module.exports=()=>{
 			const exUser=await User.findOne({
 				where:{snsId:profile.id,provider:'kakao'},
 			});
-			console.log(exUser,"ex");
 			if(exUser){
 				done(null,exUser);
 			}else{
@@ -21,7 +20,6 @@ module.exports=()=>{
 					snsId:profile.id,
 					provider:'kakao',
 				});
-				console.log(newUser,"new");
 				done(null,newUser);
 			}
 		}catch(err){

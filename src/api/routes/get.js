@@ -13,7 +13,6 @@ module.exports=(app)=>{
 	router.use((req,res,next)=>{
 	/* res.locals 값추가 가능*/
 		res.locals.user=req.user;
-		console.log(req.user);
 		next();
 	});
 	router.get('/',isNotLoggedIn,(req,res,next)=>{
@@ -60,7 +59,7 @@ module.exports=(app)=>{
 	router.get('/auth/kakao/callback',passport.authenticate('kakao',{
 		failureRedirect:'/',
 	}),(req,res)=>{
-		console.log(123);
+		// 추가 로그인 화면 으로 리다이렉트
 		res.redirect('/board');
 	});
 }
