@@ -53,7 +53,7 @@
                     justify-content: center;
                 "
             >
-                09:00
+                00:00:00
             </div>
             <div
                 style="
@@ -250,5 +250,46 @@
         navTimer.style.borderBottom = '0px solid aqua';
         navRank.style.borderBottom = '2px solid aqua';
     });
+	
+	const timerTime=document.getElementById('timerTime');
+	const timerStart=document.getElementById('timerStart');
+	const timerEnd=document.getElementById('timerEnd');
+	const timerReset=document.getElementById('timerReset');
+	
+	let worker;
+	timerStart.addEventListener('click',()=>{
+		if(!window.Worker){
+			alert('해당 브라우저는 지원하지 않습니다.');
+		}
+		else{
+			if(worker)return;
+			startTimer();
+		}
+	});
+	timerReset.addEventListener('click',()=>{
+		timerTime.textContent='00:00:00';
+		endTimer();
+	});
+	timerEnd.addEventListener('click',()=>{
+		
+		endTimer();
+	});
+	
+	function startTimer(){
+		worker=new Worker('/timer.js');
+		worker.postMessage('start');
+		worker.onmessage=function(e){
+			console.log(e.data);
+		}
+	}
+	function endTimer(){
+		if(worker){
+			worker.terminate();
+			worker = null;
+		}
+	}
+	
+	
+	
 </script>
 {% endblock %}

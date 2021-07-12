@@ -3,7 +3,7 @@ const sequelizeLoader=require('./sequelize');
 
 module.exports=async (app)=>{
 	
-	//await sequelizeLoader();
+	await sequelizeLoader();
 	await expressLoader(app);
 };
 

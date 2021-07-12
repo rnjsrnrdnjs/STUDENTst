@@ -6,7 +6,7 @@ const Post = require('./post');
 const Comment = require('./comment');
 const Like = require('./like');
 const Memo = require('./memo');
-const Note = require('./Note');
+const Note = require('./note');
 const Study = require('./study');
 
 const db = {};
