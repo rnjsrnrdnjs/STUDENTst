@@ -1,12 +1,10 @@
-let i=0;
-
+const time=1;
 self.onmessage=function(e){
 	plusCnt();
-	console.log("gngn");
 }
 
 function plusCnt(){
-	postMessage(++i);
+	postMessage({time:time});
 	setTimeout(()=>{
 		plusCnt();
 	},1000);

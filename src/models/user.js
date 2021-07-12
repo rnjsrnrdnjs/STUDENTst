@@ -4,19 +4,19 @@ module.exports = class User extends Sequelize.Model {
     static init(sequelize) {
         return super.init(
             {
-				email:{
-					type: Sequelize.STRING(40),
+				snsId:{
+					type: Sequelize.STRING(80),
                     allowNull: false,
-                    unique: true,
+                    unique: false,
 				},
                 provider: {
                     type: Sequelize.STRING(20),
                     allowNull: false,
-                    unique: true,
+                    unique: false,
                 },
 				nick:{
                     type: Sequelize.STRING(1),
-                    allowNull: false,
+                    allowNull: true,
                     unique: false,
 				},
 				profile:{
@@ -26,12 +26,12 @@ module.exports = class User extends Sequelize.Model {
 				},
 				studystart:{
                     type: Sequelize.INTEGER,
-                    allowNull: false,
+                    allowNull: true,
                     unique: false,
 				},
 				nth:{
                     type: Sequelize.INTEGER,
-                    allowNull: false,
+                    allowNull: true,
                     unique: false,
 				},
 			},

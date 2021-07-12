@@ -53,7 +53,7 @@
                     justify-content: center;
                 "
             >
-                00:00:00
+                0:0:0
             </div>
             <div
                 style="
@@ -71,7 +71,7 @@
                     start
                 </div>
                 <div
-                    id="timerReset"
+                    id="timerStop"
                     style="
                         padding: 2vw;
                         border-left: 1px solid black;
@@ -79,7 +79,7 @@
                         cursor: pointer;
                     "
                 >
-                    reset
+                    stop
                 </div>
                 <div id="timerEnd" style="padding: 2vw; cursor: pointer;">
                     end
@@ -254,41 +254,56 @@
 	const timerTime=document.getElementById('timerTime');
 	const timerStart=document.getElementById('timerStart');
 	const timerEnd=document.getElementById('timerEnd');
-	const timerReset=document.getElementById('timerReset');
+	const timerStop=document.getElementById('timerStop');
 	
 	let worker;
+	let stopTimer=true;
+	let h=0,r=0,s=0;
 	timerStart.addEventListener('click',()=>{
 		if(!window.Worker){
 			alert('해당 브라우저는 지원하지 않습니다.');
 		}
 		else{
-			if(worker)return;
+			if(worker && stopTimer==true)return;
+			stopTimer=true;
 			startTimer();
 		}
 	});
-	timerReset.addEventListener('click',()=>{
-		timerTime.textContent='00:00:00';
-		endTimer();
+	timerStop.addEventListener('click',()=>{
+		console.log(worker);
+		stopTimer=false;
+		if(worker){
+			worker.terminate();
+		}
 	});
 	timerEnd.addEventListener('click',()=>{
-		
-		endTimer();
-	});
-	
-	function startTimer(){
-		worker=new Worker('/timer.js');
-		worker.postMessage('start');
-		worker.onmessage=function(e){
-			console.log(e.data);
-		}
-	}
-	function endTimer(){
+		timerTime.textContent='0:0:0';
 		if(worker){
+			h=0,r=0,s=0;
 			worker.terminate();
 			worker = null;
 		}
+		//axios.post('/post/).then((res)=>{
+		
+		//});
+	});
+	function startTimer(){
+		if(stopTimer==true){
+			worker=new Worker('/timer.js');
+		}
+		worker.postMessage('start');
+		worker.onmessage=function(e){
+			console.log(e.data);
+			s+=e.data.time;
+			if(s==60){
+				s=0;r++;
+			}
+			if(r==60){
+				r=0;h++;
+			}
+			timerTime.textContent=`${h}:${r}:${s}`;
+		}
 	}
-	
 	
 	
 </script>

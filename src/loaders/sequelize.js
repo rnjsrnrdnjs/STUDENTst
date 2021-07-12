@@ -2,7 +2,7 @@ const { sequelize } = require('../models');
 
 module.exports = async() => {
 	sequelize
-		.sync({ force: false })
+		.sync({ force:false})
 		.then(() => {
 			console.log('database connecting success');
 		})
