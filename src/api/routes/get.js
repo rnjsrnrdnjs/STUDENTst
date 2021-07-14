@@ -50,6 +50,15 @@ module.exports=(app)=>{
 			console.error(err);
 		}
 	});
+	router.get('/profile',isLoggedIn,async(req,res,next)=>{
+		try{
+			
+			res.render('profile');
+		}catch(err){
+			console.error(err);
+		}
+	});
+	
 	router.get('/logout',isLoggedIn,(req,res)=>{
 		req.logout();
 		req.session.destroy();
@@ -60,7 +69,7 @@ module.exports=(app)=>{
 		failureRedirect:'/',
 	}),(req,res)=>{
 		// 추가 로그인 화면 으로 리다이렉트
-		res.redirect('/board');
+		res.redirect('/profile');
 	});
 }
 

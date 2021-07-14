@@ -1,0 +1,99 @@
+{% extends 'index.html' %} {% block content %}
+<div class="first">
+	
+	<div class=" logo">
+		<img src="/photo/logo.png" style="width:50px;height:50px;">공시생<span style="color:orange;">s</span><span style="color:red;">t</span>
+	</div>
+	<div style="justify-content: center;
+    margin-top: 2vh;
+    text-shadow: -2px 0 white, 0 2px white, 2px 0 white, 0 -2px white;">
+		프로필 설정
+	</div>
+		<form type="post" style='    flex-direction: column;
+    width: 80%;
+    margin-left: 10%;text-shadow: -2px 0 white, 0 2px white, 2px 0 white, 0 -2px white;'>
+			
+			<div style="width: 50%;
+    align-self: center;    margin-top: 2vh;">
+			닉넴임 
+			</div>
+			
+			<input name="nick" type="text" maxlength='1' placeholder="1글자만 입력해주세요." style="    width: 60%;
+    padding: 2vw;
+    border: 1px solid #d2d2d2;
+    background: mintcream;
+    align-self: center;
+    margin-top: 1vh;"/>
+			<div style="width: 50%;
+    align-self: center;">
+			프로필 사진 
+			</div>
+			<label id="img-label" for="img" class="btn">사진 선택</label>
+			<input  id="img" type="file" accept="image/*" name="profile" style="    width: 60%;
+    padding: 2vw;
+    border: 1px solid #d2d2d2;
+    background: mintcream;
+    align-self: center;
+    margin-top: 1vh;"/>
+			
+			<div style="width: 50%;
+    align-self: center;">
+			n수생 
+			</div>
+			<select name="nth" style="width: 30%;
+    padding: 2vw;
+    border: 1px solid #d2d2d2;
+    background: mintcream;
+    align-self: center;
+    margin-top: 1vh;">
+			<option value="1">1수생</option>
+			<option value="2">2수생</option>
+			<option value="3">3수생</option>
+			<option value="4">4수생</option>
+			<option value="5">5수생</option>
+			<option value="6">6수생</option>
+			<option value="7">7수생</option>
+			<option value="8">8수생</option>
+			<option value="9">9수생</option>
+			<option value="10">10수생</option>
+			</select>
+			
+			<button type='submit' style="width: 15%;
+    justify-content: center;
+    align-items: center;
+    align-self: center;
+    margin-top: 2vh;
+    padding: 2vw;
+    background: aliceblue;
+    border: 1px solid #d2d2d2;
+    text-shadow: -1px 0 white, 0 1px white, 0px 0 white, 0 -1px white;
+    box-shadow: 1px 1px burlywood;
+    border-radius: 10px;
+    cursor: pointer;">
+				확인
+			</button>
+		</form>
+</div> 
+{% endblock %} {% block script %}
+<script>
+	 if (document.getElementById('img')) {
+        document.getElementById('img').addEventListener('change', function (e) {
+            const formData = new FormData();
+            console.log(this, this.files);
+            formData.append('img', this.files[0]);
+            axios
+                .post('/post/img', formData)
+                .then((res) => {
+				
+                    document.getElementById('img-url').value = res.data.url;
+                    document.getElementById('img-preview').src = res.data.url;
+                    document.getElementById('img-preview').style.display = 'inline';
+                })
+                .catch((err) => {
+                    console.error(err);
+                });
+        });
+    }
+</script>
+{% endblock %}
+

@@ -1,9 +1,10 @@
 const express=require('express');
 const router=express.Router();
 const path=require('path');
+const multer = require('multer');
 const fs=require('fs');
 
-const {isLoggedIn}=require('./middlewares');
+const {isLoggedIn}=require('../middlewares');
 
 try{
 	fs.readdirSync('uploads');
@@ -29,9 +30,14 @@ const uploads=multer({
 module.exports=(app)=>{
 	app.use('/post',router);
 	
-	router.post('/img',isLoggedIn,upload.single('img'),(req,res)=>{
+	router.post('/img',isLoggedIn,uploads.single('img'),(req,res)=>{
 		console.log(req.file);
 		res.json({url:`/img/${req.file.filename}`});
 	});
 	
+	router.post('/profile',isLoggedIn,async(req,res)=>{
+		
+		
+		res.redirec('/board');
+	});
 }
