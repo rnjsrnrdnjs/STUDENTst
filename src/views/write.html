@@ -1,0 +1,109 @@
+{% extends 'index.html' %} {% block content %}
+<div class="boardBG">
+	<div class="boardShadow">
+		지금도 시간은 가고있어요...
+	</div>
+	<div class="boardNeedle">
+	</div>
+</div>
+<div class="board" >
+	<div class="homeContent">
+		<form method="post" action="/post/write" style="    flex-direction: column;">
+			<input required maxlength="40" placeholder="제목(최대40글자)" style="    height: 37px;
+    font-size: 1.1rem;
+    background: linear-gradient(
+45deg
+, aliceblue, transparent);
+    border: 1px solid #d2d2d2;
+    margin-bottom: 2vh;"type="text" name="title"/>
+			<textarea style="resize: none;    height: 300px;
+    background: linear-gradient( 
+45deg
+ , aliceblue, transparent);
+    border: 1px solid #d2d2d2;
+    margin-bottom: 2vh;" required maxlength="200" placeholder="내용(최대200글자)" name="content"></textarea>
+			
+			
+			
+			
+			<label id="img-label" for="img" class="btn" style="align-items: center;"><img src="/photo/picture.png" style="width:40px;">사진 선택</label>
+        <div class="img-preview" style="margin: 5px; text-align: center;">
+            {% if post.img %}
+            <img id="img-preview" src="{{post.img}}" width="100px" alt="미리보기" />
+            {% else %}
+            <img id="img-preview" src="" style="display: none;" width="100px" alt="미리보기" />
+            {% endif %}
+            <input id="img-url" type="hidden" name="img" />
+        </div>
+        <input id="img" style="display:none;" type="file" accept="image/*" />
+			
+			
+			
+			
+			
+			<select name="category"style="background: linear-gradient( 
+45deg
+ , aliceblue, transparent);
+    border: 1px solid #d2d2d2;
+    margin-bottom: 2vh;
+    width: 100px;height: 26px;">
+				<option value="talk" selected>공시생잡담</option>
+				<option value="pass" >합격후기</option>
+			</select>
+			
+			<button type="submit" style="cursor: pointer;
+    width: 60px;text-shadow: -2px 0 #d2d2d2, 0 2px #d2d2d2, 2px 0 #d2d2d2, 0 -2px #d2d2d2;
+    justify-content: center;
+    box-shadow: 1px 1px grey;
+    border-radius: 5px;
+    align-items: center;
+    height: 30px;
+    background: linear-gradient( 
+45deg
+ , aliceblue, transparent);
+    border: 1px solid #d2d2d2;">
+				작성
+			</button>
+		</form>
+		
+	</div>
+</div>
+
+{% endblock %} {% block script %}
+<script>
+	const header=document.getElementsByClassName('header')[0];
+	header.style.display="flex";
+	const nav=document.getElementsByClassName('nav')[0];
+	nav.style.display="flex";
+	nav.childNodes[1].style.borderBottom="3px solid aquamarine";
+	
+	
+	const board=document.getElementsByClassName('board')[0];
+	const boardShadow=document.getElementsByClassName('boardShadow')[0];
+	
+	board.addEventListener('scroll',()=>{
+		boardShadow.classList.add('boardShadow2');
+		setTimeout(()=>{
+			boardShadow.classList.remove('boardShadow2');
+		},500);
+	});
+	
+	 if (document.getElementById('img')) {
+        document.getElementById('img').addEventListener('change', function (e) {
+            const formData = new FormData();
+            console.log(this, this.files);
+            formData.append('img', this.files[0]);
+            axios
+                .post('/post/img', formData)
+                .then((res) => {
+                    document.getElementById('img-url').value = res.data.url;
+                    document.getElementById('img-preview').src = res.data.url;
+                    document.getElementById('img-preview').style.display = 'inline';
+                })
+                .catch((err) => {
+                    console.error(err);
+                });
+        });
+    }
+</script>
+{% endblock %}

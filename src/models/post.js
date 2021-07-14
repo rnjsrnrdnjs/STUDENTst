@@ -9,13 +9,18 @@ module.exports = class Post extends Sequelize.Model {
 					allowNull:false,
                     unique: false,
 				},
+				category:{
+					type:Sequelize.STRING(10),
+					allowNull:false,
+                    unique: false,
+				},
 				content:{
-					type: Sequelize.STRING(40),
+					type: Sequelize.STRING(200),
                     allowNull: false,
                     unique: false,
 				},
 				img:{
-					type: Sequelize.STRING(40),
+					type: Sequelize.STRING(100),
                     allowNull: true,
                     unique: false,
 				},

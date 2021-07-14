@@ -23,7 +23,7 @@
         </div>
         <div style="justify-content: center;">
             <img
-                src="/photo/profile.png"
+                src="{{user.profile}}"
                 style="
                     width: 100px;
                     height: 100px;
@@ -34,7 +34,7 @@
             />
         </div>
         <div style="margin-top: 3vh; justify-content: center;">
-            <span>n수생 닉네임</span><span style="margin-left:2vw;">변경</span> <span style="margin-left: 3vw;">공부시작- d+1</span>
+            <span>{{user.nth}}수생 {{user.nick}}xx</span><span style="margin-left:2vw;">변경</span> <span style="margin-left: 3vw;">공부시작- d+{{user.studystart}}</span>
         </div>
     </div>
 

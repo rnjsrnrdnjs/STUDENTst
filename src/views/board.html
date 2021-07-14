@@ -13,7 +13,7 @@
     border-bottom: 1px solid #d2d2d2;"> <span id="talk" style="align-items: center;border-bottom:2px solid aqua;cursor:pointer;"><img src="/photo/talk.png" style="width:30px; height:30px;">공시생잡담</span> <span id="pass" style="margin-left:3vw;align-items: center;cursor:pointer;"><img src="/photo/pass.png" style="width:30px; height:30px;"> 합격후기</span>
 		</div>
 		<!--글쓰기-->
-		<div class="" style="    align-items: center;
+		<div id="writePost" onClick="location.href='/write';" style="    align-items: center;
     margin-top: 1vh;
     margin-bottom: 1vh;
     flex: 1;
@@ -27,6 +27,7 @@
 			
 			<!-- 이곳에 게시판글 나타냄
 			-->
+			{% for post in talk %}
 			<div style="transform: translate(-2vw);
     width: 80%;">
 				
@@ -48,202 +49,29 @@
 					<div style="align-items:center;">
 						<span style="margin-left:2vw;background: white;
     border-radius: 50%;
-    padding: 5px;    border: 1px solid #d2d2d2;"><img src="/photo/profile.png" style="width:30px; height:30px;"> </span><span style="margin-left:2vw;">n수생</span> <span style="margin-left:2vw;"> 09:00:00</span>
+    padding: 5px;    border: 1px solid #d2d2d2;"><img src="{{post.User.profile}}" style="width:30px; height:30px;border-radius: 50%;"> </span><span style="margin-left:2vw;">{{post.User.nth}}수생 {{post.User.nick}}xx</span> <span style="margin-left:2vw;"> 09:00:00</span>
 						<span></span>
 					</div>
-					<div style="padding:2vw;">
-						샬라샬라샬라샬라
-						샬라샬라
-						샬라샬라
-						샬라샬라
+					<div style="padding:2vw;font-size:0.7rem;">
+						{{post.title}}
 					</div>
+					<div style="padding:2vw;">
+						{{post.content}}
+					</div>
+					{% if post.img %}
+						<img src="{{post.img}}" style="width:100%;margin-bottom:1vh;border-radius: 3px;">
+					{% endif %}
+				
 					<div style="padding-left:2vw;padding-bottom: 5vh;">
 						<span style="align-items:center;margin-right:1vw;cursor:pointer;"><img src="/photo/message.png" style="width:30px; height:30px;margin-right:1vw;"> 0</span>
 						<span style="align-items:center;margin-right:1vw;cursor:pointer;"><img src="/photo/likeBE.png" style="width:30px; height:30px;margin-right:1vw;"> 0</span>
 					</div>
 				</div>
 			</div>
-			
-			<div style="transform: translate(-2vw);
-    width: 80%;">
-				
-				<div style="    width: 10%;
-    border-top: 2px solid gray;
-    border-right: 2px solid gray;">
-				</div>
-				<div style=" width: 30px;
-    height: 30px;
-    transform: translate(-15px,-10px);
-    background: url(/photo/gridBook.png) no-repeat;
-    background-size: 100% 100%;">
-				</div>
-				<div style="width: 85%;border-radius: 10px;
-    flex-direction: column;
-    background: linear-gradient(
-90deg
-, white, transparent);">
-					<div style="align-items:center;">
-						<span style="margin-left:2vw;background: white;
-    border-radius: 50%;
-    padding: 5px;    border: 1px solid #d2d2d2;"><img src="/photo/profile.png" style="width:30px; height:30px;"> </span><span style="margin-left:2vw;">n수생</span> <span style="margin-left:2vw;"> 09:00:00</span>
-						<span></span>
-					</div>
-					<div style="padding:2vw;">
-						디자인은 너무나 어려워요..
-					</div>
-					<div style="padding-left:2vw;padding-bottom: 5vh;">
-						<span style="align-items:center;margin-right:1vw;"><img src="/photo/message.png" style="width:30px; height:30px;margin-right:1vw;"> 0</span>
-						<span style="align-items:center;margin-right:1vw;"><img src="/photo/likeBE.png" style="width:30px; height:30px;margin-right:1vw;"> 0</span>
-					</div>
-				</div>
-			</div>
-			
-			<div style="transform: translate(-2vw);
-    width: 80%;">
-				
-				<div style="    width: 10%;
-    border-top: 2px solid gray;
-    border-right: 2px solid gray;">
-				</div>
-				<div style=" width: 30px;
-    height: 30px;
-    transform: translate(-15px,-10px);
-    background: url(/photo/gridBook.png) no-repeat;
-    background-size: 100% 100%;">
-				</div>
-				<div style="width: 85%;border-radius: 10px;
-    flex-direction: column;
-    background: linear-gradient(
-90deg
-, white, transparent);">
-					<div style="align-items:center;">
-						<span style="margin-left:2vw;background: white;
-    border-radius: 50%;
-    padding: 5px;    border: 1px solid #d2d2d2;"><img src="/photo/profile.png" style="width:30px; height:30px;"> </span><span style="margin-left:2vw;">n수생</span> <span style="margin-left:2vw;"> 09:00:00</span>
-						<span></span>
-					</div>
-					<div style="padding:2vw;">
-						풀스택 개발자가 꼭되고 말거에요.
-					</div>
-					<div style="padding-left:2vw;padding-bottom: 5vh;">
-						<span style="align-items:center;margin-right:1vw;"><img src="/photo/message.png" style="width:30px; height:30px;margin-right:1vw;"> 0</span>
-						<span style="align-items:center;margin-right:1vw;"><img src="/photo/likeBE.png" style="width:30px; height:30px;margin-right:1vw;"> 0</span>
-					</div>
-				</div>
-			</div>
-			
-			
-			<div style="transform: translate(-2vw);
-    width: 80%;">
-				
-				<div style="    width: 10%;
-    border-top: 2px solid gray;
-    border-right: 2px solid gray;">
-				</div>
-				<div style=" width: 30px;
-    height: 30px;
-    transform: translate(-15px,-10px);
-    background: url(/photo/gridBook.png) no-repeat;
-    background-size: 100% 100%;">
-				</div>
-				<div style="width: 85%;border-radius: 10px;
-    flex-direction: column;
-    background: linear-gradient(
-90deg
-, white, transparent);">
-					<div style="align-items:center;">
-						<span style="margin-left:2vw;background: white;
-    border-radius: 50%;
-    padding: 5px;    border: 1px solid #d2d2d2;"><img src="/photo/profile.png" style="width:30px; height:30px;"> </span><span style="margin-left:2vw;">n수생</span> <span style="margin-left:2vw;"> 09:00:00</span>
-						<span></span>
-					</div>
-					<div style="padding:2vw;">
-						공시생 여러분 모두 응원할게요.
-					</div>
-					<div style="padding-left:2vw;padding-bottom: 5vh;">
-						<span style="align-items:center;margin-right:1vw;"><img src="/photo/message.png" style="width:30px; height:30px;margin-right:1vw;"> 0</span>
-						<span style="align-items:center;margin-right:1vw;"><img src="/photo/likeBE.png" style="width:30px; height:30px;margin-right:1vw;"> 0</span>
-					</div>
-				</div>
-			</div>
-			
-			
-			<div style="transform: translate(-2vw);
-    width: 80%;">
-				
-				<div style="    width: 10%;
-    border-top: 2px solid gray;
-    border-right: 2px solid gray;">
-				</div>
-				<div style=" width: 30px;
-    height: 30px;
-    transform: translate(-15px,-10px);
-    background: url(/photo/gridBook.png) no-repeat;
-    background-size: 100% 100%;">
-				</div>
-				<div style="width: 85%;border-radius: 10px;
-    flex-direction: column;
-    background: linear-gradient(
-90deg
-, white, transparent);">
-					<div style="align-items:center;">
-						<span style="margin-left:2vw;background: white;
-    border-radius: 50%;
-    padding: 5px;    border: 1px solid #d2d2d2;"><img src="/photo/profile.png" style="width:30px; height:30px;"> </span><span style="margin-left:2vw;">n수생</span> <span style="margin-left:2vw;"> 09:00:00</span>
-						<span></span>
-					</div>
-					<div style="padding:2vw;">
-						샬라샬라샬라샬라
-						샬라샬라
-						샬라샬라
-						샬라샬라
-					</div>
-					<div style="padding-left:2vw; padding-bottom: 5vh;">
-						<span style="align-items:center;margin-right:1vw;"><img src="/photo/message.png" style="width:30px; height:30px;margin-right:1vw;"> 0</span>
-						<span style="align-items:center;margin-right:1vw;"><img src="/photo/likeBE.png" style="width:30px; height:30px;margin-right:1vw;"> 0</span>
-					</div>
-				</div>
-			</div>
-			
-			<div style="transform: translate(-2vw);
-    width: 80%;">
-				
-				<div style="    width: 10%;
-    border-top: 2px solid gray;
-    border-right: 2px solid gray;">
-				</div>
-				<div style=" width: 30px;
-    height: 30px;
-    transform: translate(-15px,-10px);
-    background: url(/photo/gridBook.png) no-repeat;
-    background-size: 100% 100%;">
-				</div>
-				<div style="width: 85%;border-radius: 10px;
-    flex-direction: column;
-    background: linear-gradient(
-90deg
-, white, transparent);">
-					<div style="align-items:center;">
-						<span style="margin-left:2vw;background: white;
-    border-radius: 50%;
-    padding: 5px;    border: 1px solid #d2d2d2;"><img src="/photo/profile.png" style="width:30px; height:30px;"> </span><span style="margin-left:2vw;">n수생</span> <span style="margin-left:2vw;"> 09:00:00</span>
-						<span></span>
-					</div>
-					<div style="padding:2vw;">
-						샬라샬라샬라샬라
-						샬라샬라
-						샬라샬라
-						샬라샬라
-					</div>
-					<div style="padding-left:2vw;">
-						<span style="align-items:center;margin-right:1vw;"><img src="/photo/message.png" style="width:30px; height:30px;margin-right:1vw;"> 0</span>
-						<span style="align-items:center;margin-right:1vw;"><img src="/photo/likeBE.png" style="width:30px; height:30px;margin-right:1vw;padding-bottom: 5vh;"> 0</span>
-					</div>
-				</div>
-			</div>
+			{% endfor %}
 		</div>
 		
-		<div id="pass">
+		<div id="hoogi">
 			<!-- 이곳에 게시판글 나타냄
 			-->
 			<div >
@@ -272,6 +100,21 @@
 			boardShadow.classList.remove('boardShadow2');
 		},500);
 	});
+	
+	const talk=document.getElementById('talk');
+	const pass=document.getElementById('pass');
+	const gossip=document.getElementById('gossip');
+	const hoogi=document.getElementById('hoogi');
+	
+	talk.addEventListener('click',()=>{
+		gossip.style.display="flex";
+		hoogi.style.display="none";
+	});
+	pass.addEventListener('click',()=>{
+		gossip.style.display="none";
+		hoogi.style.display="flex";
+	});
+	
 	
 </script>
 {% endblock %}

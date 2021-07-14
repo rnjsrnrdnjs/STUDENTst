@@ -270,7 +270,6 @@
 		}
 	});
 	timerStop.addEventListener('click',()=>{
-		console.log(worker);
 		stopTimer=false;
 		if(worker){
 			worker.terminate();
@@ -278,14 +277,17 @@
 	});
 	timerEnd.addEventListener('click',()=>{
 		timerTime.textContent='0:0:0';
+		const time=s+r*60+h*3600;	
+		console.log(time);
+		axios.post('/post/timer',{
+			time:time,
+		});
 		if(worker){
 			h=0,r=0,s=0;
 			worker.terminate();
 			worker = null;
 		}
-		//axios.post('/post/).then((res)=>{
 		
-		//});
 	});
 	function startTimer(){
 		if(stopTimer==true){
@@ -293,7 +295,6 @@
 		}
 		worker.postMessage('start');
 		worker.onmessage=function(e){
-			console.log(e.data);
 			s+=e.data.time;
 			if(s==60){
 				s=0;r++;

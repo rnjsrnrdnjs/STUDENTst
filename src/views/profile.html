@@ -9,38 +9,43 @@
     text-shadow: -2px 0 white, 0 2px white, 2px 0 white, 0 -2px white;">
 		프로필 설정
 	</div>
-		<form type="post" style='    flex-direction: column;
+		<form method="post" action="/post/profile" style='flex-direction: column;
     width: 80%;
     margin-left: 10%;text-shadow: -2px 0 white, 0 2px white, 2px 0 white, 0 -2px white;'>
 			
 			<div style="width: 50%;
-    align-self: center;    margin-top: 2vh;">
+    align-self: center;    margin-top: 2vh;justify-content: center;">
 			닉넴임 
 			</div>
 			
-			<input name="nick" type="text" maxlength='1' placeholder="1글자만 입력해주세요." style="    width: 60%;
+			<input required name="nick" type="text" maxlength='1' placeholder="1글자만 입력해주세요." style="    width: 60%;
     padding: 2vw;
     border: 1px solid #d2d2d2;
     background: mintcream;
     align-self: center;
     margin-top: 1vh;"/>
 			<div style="width: 50%;
-    align-self: center;">
+    align-self: center;margin-top:2vh;justify-content: center;">
 			프로필 사진 
 			</div>
-			<label id="img-label" for="img" class="btn">사진 선택</label>
-			<input  id="img" type="file" accept="image/*" name="profile" style="    width: 60%;
+			<label id="img-label" for="img" class="btn" style="justify-content: center;"><img id="img-url" src="/photo/profile.png" style="    width: 100px;
+    background: white;
+    border-radius: 50%;
+    padding: 2vw;
+    margin-top: 2vh;"/></label>
+			<input id="url"type="hidden" name="profile" value="/img/profile.png"/>
+			<input  id="img" type="file" accept="image/*"style="    width: 60%;
     padding: 2vw;
     border: 1px solid #d2d2d2;
     background: mintcream;
     align-self: center;
-    margin-top: 1vh;"/>
+    margin-top: 1vh;display:none;"/>
 			
 			<div style="width: 50%;
-    align-self: center;">
+    align-self: center;justify-content: center;margin-top:1vh;">
 			n수생 
 			</div>
-			<select name="nth" style="width: 30%;
+			<select required name="nth" style="width: 30%;
     padding: 2vw;
     border: 1px solid #d2d2d2;
     background: mintcream;
@@ -84,10 +89,8 @@
             axios
                 .post('/post/img', formData)
                 .then((res) => {
-				
-                    document.getElementById('img-url').value = res.data.url;
-                    document.getElementById('img-preview').src = res.data.url;
-                    document.getElementById('img-preview').style.display = 'inline';
+                    document.getElementById('img-url').src = `${res.data.url}`;
+					document.getElementById('url').value=res.data.url;
                 })
                 .catch((err) => {
                     console.error(err);

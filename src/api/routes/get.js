@@ -1,7 +1,7 @@
 const express=require('express');
 const router=express.Router();
 
-const { User } = require('../../models');
+const { User,Comment,Like,Memo,Note,Post,Study } = require('../../models');
 
 const Sequelize = require('sequelize');
 const Op = Sequelize.Op; 
@@ -20,8 +20,27 @@ module.exports=(app)=>{
 	});
 	router.get('/board',isLoggedIn,async(req,res,next)=>{
 		try{
-			
-			res.render('board');
+			const talk=await Post.findAll({
+				include:{
+					model:User,
+				},
+				where:{
+					category:"talk",
+				},
+				order: [['createdAt', 'DESC']],
+			});
+			const pass=await Post.findAll({
+				include:{
+					model:User,
+				},
+				where:{
+					category:"pass",
+				},
+				order: [['createdAt', 'DESC']],
+			});
+			res.render('board',{
+				talk,pass,
+			});
 		}catch(err){
 			console.error(err);
 		}
@@ -52,12 +71,19 @@ module.exports=(app)=>{
 	});
 	router.get('/profile',isLoggedIn,async(req,res,next)=>{
 		try{
-			
 			res.render('profile');
 		}catch(err){
 			console.error(err);
 		}
 	});
+	router.get('/write',isLoggedIn,async(req,res,next)=>{
+		try{
+			res.render('write');
+		}catch(err){
+			console.error(err);
+		}
+	});
+	
 	
 	router.get('/logout',isLoggedIn,(req,res)=>{
 		req.logout();
@@ -67,9 +93,16 @@ module.exports=(app)=>{
 	router.get('/kakao',passport.authenticate('kakao'));
 	router.get('/auth/kakao/callback',passport.authenticate('kakao',{
 		failureRedirect:'/',
-	}),(req,res)=>{
+	}),async(req,res)=>{
 		// 추가 로그인 화면 으로 리다이렉트
-		res.redirect('/profile');
+		const user=await User.findOne({
+			where:{
+				id:req.user.id,
+			}
+		});
+		if(user.nick)res.redirect('/board');
+		else	
+			res.redirect('/profile');
 	});
 }
 

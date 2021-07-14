@@ -4,6 +4,9 @@ const path=require('path');
 const multer = require('multer');
 const fs=require('fs');
 
+const { User,Comment,Like,Memo,Note,Post,Study } = require('../../models');
+
+
 const {isLoggedIn}=require('../middlewares');
 
 try{
@@ -19,7 +22,7 @@ const uploads=multer({
 		},
 		filename(req,file,cb){
 			const ext=path.extname(file.originalname);
-			cb(null,path.basename(file.originalname,ext)+Data.now()+ext);
+			cb(null,path.basename(file.originalname,ext)+Date.now()+ext);
 		},
 	}),
 	limits:{fileSize:5*1024*1024},
@@ -36,8 +39,40 @@ module.exports=(app)=>{
 	});
 	
 	router.post('/profile',isLoggedIn,async(req,res)=>{
+		const user=await User.findOne({
+			where:{
+				id:req.user.id,
+			}
+		});
+		await user.update({
+			nick:req.body.nick,
+			nth:req.body.nth,
+			profile:req.body.profile,
+			studystart:1,
+		},{
+			where:{
+				id:req.user.id,
+			}
+		});
 		
-		
-		res.redirec('/board');
+		res.redirect('/board');
+	});
+	router.post('/write',isLoggedIn,async(req,res)=>{
+		const post=await Post.create({
+			UserId:req.user.id,
+			title:req.body.title,
+			category:req.body.category,
+			content:req.body.content,
+			img:req.body.img,
+		});
+		res.redirect('/board');
+	});
+	router.post('/timer',isLoggedIn,async(req,res)=>{
+		const timer=await Study.create({
+			UserId:req.user.id,
+			time:req.body.time,
+		});
+		console.log(timer);
+		res.json('ok');
 	});
 }
