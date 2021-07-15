@@ -7,6 +7,7 @@ const Sequelize = require('sequelize');
 const Op = Sequelize.Op; 
 const {isLoggedIn,isNotLoggedIn}=require('../middlewares');
 const passport=require('passport');
+const moment = require('moment');
 
 module.exports=(app)=>{
 	app.use('/',router);
@@ -47,8 +48,98 @@ module.exports=(app)=>{
 	});
 	router.get('/timer',isLoggedIn,async(req,res,next)=>{
 		try{
+			const year = moment().format('YYYY');
+      		const month = moment().format('YYYY/MM');
+        	const day = moment().format('YYYY/MM/DD');
+
+			const dayMe=await Study.findOne({
+				include:{
+					model:User,
+				},
+				where:{
+					duration:day,
+					UserId:req.user.id,
+				}
+			});
+			const dayList=await Study.findAll({
+				include:{
+					model:User,
+				},
+				where:{
+					duration:day,
+				},
+				order: [['time', 'DESC']],
+			});
+			const monthMe=await Study.findOne({
+				include:{
+					model:User,
+				},
+				where:{
+					duration:month,
+					UserId:req.user.id,
+				}
+			});
+			const monthList=await Study.findAll({
+				include:{
+					model:User,
+				},
+				where:{
+					duration:month,
+				},
+				order: [['time', 'DESC']],
+			});
+			const yearMe=await Study.findOne({
+				include:{
+					model:User,
+				},
+				where:{
+					duration:year,
+					UserId:req.user.id,
+				}
+			});
+			const yearList=await Study.findAll({
+				include:{
+					model:User,
+				},
+				where:{
+					duration:year,
+				},
+				order: [['time', 'DESC']],
+			});
+			let dayIdx=1,monthIdx=1,yearIdx=1;
+			if(dayMe){
+			for(let list in dayList){
+				if(dayMe.time<list.time){
+					await dayIdx++;
+				}
+				else break;
+			}
+			}
+			dayIdx=(dayIdx/dayList.length).toFixed(2) *100;
+			if(monthMe){
+			for(let list in monthList){
+				if(monthMe.time<list.time){
+					await monthIdx++;
+				}
+				else break;
+			}
+			}
+			monthIdx=(monthIdx/monthList.length).toFixed(2) *100;
+			if(yearMe){
+			for(let list in yearList){
+				if(yearMe.time<list.time){
+					await yearIdx++;
+				}
+				else break;
+			}
+			}
+			yearIdx=(yearIdx/yearList.length).toFixed(2) *100;
 			
-			res.render('timer');
+			res.render('timer',{
+				dayMe,monthMe,yearMe,
+				dayList,monthList,yearList,
+				dayIdx,monthIdx,yearIdx,
+			});
 		}catch(err){
 			console.error(err);
 		}
@@ -63,8 +154,12 @@ module.exports=(app)=>{
 	});
 	router.get('/setting',isLoggedIn,async(req,res,next)=>{
 		try{
-			
-			res.render('setting');
+			const myStudy=await Study.findAll({
+				
+			});
+			res.render('setting',{
+				myStudy,
+			});
 		}catch(err){
 			console.error(err);
 		}
@@ -90,6 +185,42 @@ module.exports=(app)=>{
 		req.session.destroy();
 		res.redirect('/');
 	});
+	router.get('/delete/real090lear',isLoggedIn,async(req,res)=>{
+		await Comment.destroy({
+			where:{
+				UserId:req.user.id,
+			},
+		});
+		await Like.destroy({
+			where:{
+				UserId:req.user.id,
+			},
+		});
+		await Memo.destroy({
+			where:{
+				UserId:req.user.id,
+			},
+		});
+		await Post.destroy({
+			where:{
+				UserId:req.user.id,
+			},
+		});
+		await Study.destroy({
+			where:{
+				UserId:req.user.id,
+			},
+		});
+		await User.destroy({
+			where:{
+				id:req.user.id,
+			},
+		});
+		req.logout();
+		req.session.destroy();
+		res.redirect('/');
+	});
+	
 	router.get('/kakao',passport.authenticate('kakao'));
 	router.get('/auth/kakao/callback',passport.authenticate('kakao',{
 		failureRedirect:'/',

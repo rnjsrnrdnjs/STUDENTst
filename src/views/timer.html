@@ -2,6 +2,20 @@
 
 <div class="board">
     <div style="justify-content: space-evenly; margin-top: 3vh;">
+		<div id="selDay2" style="align-items: center; display:none;">
+			<img src="/photo/day.png" style="width: 30px; height: 30px;" />
+		<select id="selDay" style="align-items: center;
+    display: none;
+    background: transparent;
+    border: none;
+    border-radius: 5px;
+    text-shadow: rgb(210 210 210) -1px 0px, rgb(210 210 210) 0px 1px, rgb(210 210 210) 1px 0px, rgb(210 210 210) 0px -1px;">
+				<option value="year" selected="selected">일년 기록</option>
+			    <option value="month">한달 기록</option>
+ 			   <option value="day">하루 기록</option>
+		</select>
+		</div>
+		
         <div
             id="navTimer"
             style="align-items: center; border-bottom: 2px solid aqua; cursor: pointer;"
@@ -110,15 +124,114 @@
     </div>
 
     <div id="rank" style="display: none; margin-top: 3vh; padding: 2vw;flex-direction: column;">
-        <div id="navDay">
-			<select>
-				
-			</select>
-		</div>
 
-            <div id="day" style="flex-direction: column; width: 100%;">
-                <div
-                    id="meRank"
+		
+        <div id="day" style="flex-direction: column; width: 100%;">
+            <div
+                    style="
+                        align-items: center;
+                        width: 100%;
+                        border-bottom: 1px solid #d2d2d2;
+                        margin-bottom: 2vh;
+                    "
+                >
+                    <span style="flex: 1;"
+                        ><img src="/photo/meMedal.png" style="width: 30px; height: 30px;"
+                    /></span>
+                    <span style="margin-left: 2vw; flex: 1;">
+						{% if dayMe.User.profile %}
+                        <img
+                            src="{{dayMe.User.profile}}"
+                            style="
+                                width: 30px;
+                                height: 30px;
+                                border: 1px solid #d2d2d2;
+                                border-radius: 50%;
+                                padding: 2px;
+                            "
+                    />
+						{% else %}
+						<img
+                            src="{{user.profile}}"
+                            style="
+                                width: 30px;
+                                height: 30px;
+                                border: 1px solid #d2d2d2;
+                                border-radius: 50%;
+                                padding: 2px;
+                            "
+                    />	
+						{% endif %}
+				</span>
+                    <span style="flex: 3; margin-left: 1vw;">{{user.nick}}xx</span>
+				{% if dayMe %}
+                    <div style="flex: 6; font-size: 0.7rem;">
+                        <span style="margin-left: 4vw;"> time-</span>
+                        <span style="margin-left: 1vw;"> {{dayMe.time//3600%60}}h:</span>
+                        <span> {{dayMe.time//60%60}}m:</span>
+                        <span> {{dayMe.time%60}}s</span>
+                    </div>
+                    <span style="margin-left: 2vw; flex: 2; font-size: 0.7rem;"> 상위 {{dayIdx}}%</span>
+                </div>
+				{% else %}
+                    <div style="flex: 6; font-size: 0.7rem;">
+                        <span style="margin-left: 4vw;"> time-</span>
+                        <span style="margin-left: 1vw;"> 0h:</span>
+                        <span> 0m:</span>
+                        <span> 0s</span>
+                    </div>
+                    <span style="margin-left: 2vw; flex: 2; font-size: 0.7rem;"> 상위 100%</span>
+                </div>
+				{% endif %}
+			
+				{% for list in dayList %}
+				<div style="flex-direction: column; margin-bottom: 1vh;">
+				{% if loop.index==1 %}
+                    <div style="align-items: center;">
+                        <span style="flex: 1;"
+                            ><img src="/photo/oneMedal.png" style="width: 30px; height: 30px;"
+                        /></span>
+				{% elif loop.index==2 %}		
+					<div  style="align-items: center;">
+                        <span style="flex: 1;"
+                            ><img src="/photo/twoMedal.png" style="width: 30px; height: 30px;"
+                        /></span>
+				{% elif loop.index==3 %}
+                    <div  style="align-items: center;">
+                        <span style="flex: 1;"
+                            ><img src="/photo/threeMedal.png" style="width: 30px; height: 30px;"
+                        /></span>
+				{% else %}
+                    <div  style="align-items: center;">
+                        <span style="flex: 1;"
+                            ><img src="/photo/elseMedal.png" style="width: 30px; height: 30px;"
+                        /></span>
+				{% endif %}
+                        <span style="flex: 1;">
+                            <img
+                                src="{{list.User.profile}}"
+                                style="
+                                    width: 30px;
+                                    height: 30px;
+                                    border: 1px solid #d2d2d2;
+                                    border-radius: 50%;
+                                    padding: 2px;
+                                "
+                        /></span>
+                        <span style="flex: 3; margin-left: 1vw;"> {{list.User.nth}}수생 {{list.User.nick}}xx</span>
+                        <div style="flex: 4;">
+                            <span style="margin-left: 4vw;"> time-</span>
+                            <span style="margin-left: 1vw;"> {{list.time//3600%60}}h:</span>
+                            <span style=""> {{list.time//60%60}}m:</span>
+                            <span style=""> {{list.time%60}}s</span>
+                        </div>
+                    </div>
+                </div>
+				{% endfor %}
+        </div>
+		
+		<div id="month" style="display:none;flex-direction: column; width: 100%;">
+            <div
                     style="
                         align-items: center;
                         width: 100%;
@@ -131,7 +244,7 @@
                     /></span>
                     <span style="margin-left: 2vw; flex: 1;">
                         <img
-                            src="/photo/profile.png"
+                            src="{{monthMe.User.profile}}"
                             style="
                                 width: 30px;
                                 height: 30px;
@@ -140,101 +253,41 @@
                                 padding: 2px;
                             "
                     /></span>
-                    <span style="flex: 3; margin-left: 1vw;">김xx</span>
+                    <span style="flex: 3; margin-left: 1vw;">{{monthMe.User.nick}}xx</span>
                     <div style="flex: 6; font-size: 0.7rem;">
                         <span style="margin-left: 4vw;"> time-</span>
-                        <span style="margin-left: 1vw;"> 2h:</span>
-                        <span> 2m:</span>
-                        <span> 2s</span>
+                        <span style="margin-left: 1vw;"> {{monthMe.time//3600%60}}h:</span>
+                        <span> {{monthMe.time//60%60}}m:</span>
+                        <span> {{monthMe.time%60}}s</span>
                     </div>
-                    <span style="margin-left: 2vw; flex: 2; font-size: 0.7rem;"> 상위 13.1%</span>
+                    <span style="margin-left: 2vw; flex: 2; font-size: 0.7rem;"> 상위 {{monthIdx}}%</span>
                 </div>
-
-                <div style="flex-direction: column; margin-bottom: 1vh;">
-                    <div id="oneRank" style="align-items: center;">
+				{% for list in monthList %}
+				<div style="flex-direction: column; margin-bottom: 1vh;">
+				{% if loop.index==1 %}
+                    <div style="align-items: center;">
                         <span style="flex: 1;"
                             ><img src="/photo/oneMedal.png" style="width: 30px; height: 30px;"
                         /></span>
-                        <span style="flex: 1;">
-                            <img
-                                src="/photo/profile.png"
-                                style="
-                                    width: 30px;
-                                    height: 30px;
-                                    border: 1px solid #d2d2d2;
-                                    border-radius: 50%;
-                                    padding: 2px;
-                                "
-                        /></span>
-                        <span style="flex: 3; margin-left: 1vw;"> n수생 김xx</span>
-                        <div style="flex: 4;">
-                            <span style="margin-left: 4vw;"> time-</span>
-                            <span style="margin-left: 1vw;"> 2h:</span>
-                            <span style=""> 2m:</span>
-                            <span style=""> 2s</span>
-                        </div>
-                    </div>
-                </div>
-
-                <div style="flex-direction: column; margin-bottom: 1vh;">
-                    <div id="twoRank" style="align-items: center;">
+				{% elif loop.index==2 %}		
+					<div  style="align-items: center;">
                         <span style="flex: 1;"
                             ><img src="/photo/twoMedal.png" style="width: 30px; height: 30px;"
                         /></span>
-                        <span style="flex: 1;">
-                            <img
-                                src="/photo/profile.png"
-                                style="
-                                    width: 30px;
-                                    height: 30px;
-                                    border: 1px solid #d2d2d2;
-                                    border-radius: 50%;
-                                    padding: 2px;
-                                "
-                        /></span>
-                        <span style="flex: 3; margin-left: 1vw;"> n수생 김xx</span>
-                        <div style="flex: 4;">
-                            <span style="margin-left: 4vw;"> time-</span>
-                            <span style="margin-left: 1vw;"> 2h:</span>
-                            <span style=""> 2m:</span>
-                            <span style=""> 2s</span>
-                        </div>
-                    </div>
-                </div>
-                <div style="flex-direction: column; margin-bottom: 1vh;">
-                    <div id="threeRank" style="align-items: center;">
+				{% elif loop.index==3 %}
+                    <div  style="align-items: center;">
                         <span style="flex: 1;"
                             ><img src="/photo/threeMedal.png" style="width: 30px; height: 30px;"
                         /></span>
-                        <span style="flex: 1;">
-                            <img
-                                src="/photo/profile.png"
-                                style="
-                                    width: 30px;
-                                    height: 30px;
-                                    border: 1px solid #d2d2d2;
-                                    border-radius: 50%;
-                                    padding: 2px;
-                                "
-                        /></span>
-                        <span style="flex: 3; margin-left: 1vw;"> n수생 김xx</span>
-                        <div style="flex: 4;">
-                            <span style="margin-left: 4vw;"> time-</span>
-                            <span style="margin-left: 1vw;"> 2h:</span>
-                            <span style=""> 2m:</span>
-                            <span style=""> 2s</span>
-                        </div>
-                    </div>
-                </div>
-
-                <div style="flex-direction: column; margin-bottom: 1vh;">
-                    <div id="elseRank" style="align-items: center;">
+				{% else %}
+                    <div  style="align-items: center;">
                         <span style="flex: 1;"
                             ><img src="/photo/elseMedal.png" style="width: 30px; height: 30px;"
                         /></span>
+				{% endif %}
                         <span style="flex: 1;">
                             <img
-                                src="/photo/profile.png"
+                                src="{{list.User.profile}}"
                                 style="
                                     width: 30px;
                                     height: 30px;
@@ -243,15 +296,94 @@
                                     padding: 2px;
                                 "
                         /></span>
-                        <span style="flex: 3; margin-left: 1vw;"> n수생 김xx</span>
+                        <span style="flex: 3; margin-left: 1vw;"> {{list.User.nth}}수생 {{list.User.nick}}xx</span>
                         <div style="flex: 4;">
                             <span style="margin-left: 4vw;"> time-</span>
-                            <span style="margin-left: 1vw;"> 2h:</span>
-                            <span style=""> 2m:</span>
-                            <span style=""> 2s</span>
+                            <span style="margin-left: 1vw;"> {{list.time//3600%60}}h:</span>
+                            <span style=""> {{list.time//60%60}}m:</span>
+                            <span style=""> {{list.time%60}}s</span>
                         </div>
                     </div>
                 </div>
+				{% endfor %}
+        </div>
+						
+						<div id="year" style="display:none;flex-direction: column; width: 100%;">
+            <div
+                    style="
+                        align-items: center;
+                        width: 100%;
+                        border-bottom: 1px solid #d2d2d2;
+                        margin-bottom: 2vh;
+                    "
+                >
+                    <span style="flex: 1;"
+                        ><img src="/photo/meMedal.png" style="width: 30px; height: 30px;"
+                    /></span>
+                    <span style="margin-left: 2vw; flex: 1;">
+                        <img
+                            src="{{yearMe.User.profile}}"
+                            style="
+                                width: 30px;
+                                height: 30px;
+                                border: 1px solid #d2d2d2;
+                                border-radius: 50%;
+                                padding: 2px;
+                            "
+                    /></span>
+                    <span style="flex: 3; margin-left: 1vw;">{{yearMe.User.nick}}xx</span>
+                    <div style="flex: 6; font-size: 0.7rem;">
+                        <span style="margin-left: 4vw;"> time-</span>
+                        <span style="margin-left: 1vw;"> {{yearMe.time//3600%60}}h:</span>
+                        <span> {{yearMe.time//60%60}}m:</span>
+                        <span> {{yearMe.time%60}}s</span>
+                    </div>
+                    <span style="margin-left: 2vw; flex: 2; font-size: 0.7rem;"> 상위 {{yearIdx}}%</span>
+                </div>
+				{% for list in yearList %}
+				<div style="flex-direction: column; margin-bottom: 1vh;">
+				{% if loop.index==1 %}
+                    <div style="align-items: center;">
+                        <span style="flex: 1;"
+                            ><img src="/photo/oneMedal.png" style="width: 30px; height: 30px;"
+                        /></span>
+				{% elif loop.index==2 %}		
+					<div  style="align-items: center;">
+                        <span style="flex: 1;"
+                            ><img src="/photo/twoMedal.png" style="width: 30px; height: 30px;"
+                        /></span>
+				{% elif loop.index==3 %}
+                    <div  style="align-items: center;">
+                        <span style="flex: 1;"
+                            ><img src="/photo/threeMedal.png" style="width: 30px; height: 30px;"
+                        /></span>
+				{% else %}
+                    <div  style="align-items: center;">
+                        <span style="flex: 1;"
+                            ><img src="/photo/elseMedal.png" style="width: 30px; height: 30px;"
+                        /></span>
+				{% endif %}
+                        <span style="flex: 1;">
+                            <img
+                                src="{{list.User.profile}}"
+                                style="
+                                    width: 30px;
+                                    height: 30px;
+                                    border: 1px solid #d2d2d2;
+                                    border-radius: 50%;
+                                    padding: 2px;
+                                "
+                        /></span>
+                        <span style="flex: 3; margin-left: 1vw;"> {{list.User.nth}}수생 {{list.User.nick}}xx</span>
+                        <div style="flex: 4;">
+                            <span style="margin-left: 4vw;"> time-</span>
+                            <span style="margin-left: 1vw;"> {{list.time//3600%60}}h:</span>
+                            <span style=""> {{list.time//60%60}}m:</span>
+                            <span style=""> {{list.time%60}}s</span>
+                        </div>
+                    </div>
+                </div>
+				{% endfor %}
         </div>
     </div>
 </div>
@@ -268,8 +400,12 @@
     const navRank = document.getElementById('navRank');
     const timer = document.getElementById('timer');
     const rank = document.getElementById('rank');
+	const selDay=document.getElementById('selDay');
+	const selDay2=document.getElementById('selDay2');
 
     navTimer.addEventListener('click', () => {
+		selDay.style.display="none";
+		selDay2.style.display="none";
         timer.style.display = 'flex';
         rank.style.display = 'none';
         navTimer.style.borderBottom = '2px solid aqua';
@@ -277,11 +413,34 @@
     });
 
     navRank.addEventListener('click', () => {
+		selDay.style.display="flex";
+		selDay2.style.display="flex";
         timer.style.display = 'none';
         rank.style.display = 'flex';
         navTimer.style.borderBottom = '0px solid aqua';
         navRank.style.borderBottom = '2px solid aqua';
     });
+	const day=document.getElementById('day');
+	const month=document.getElementById('month');
+	const year=document.getElementById('year');
+	selDay.addEventListener('change',()=>{
+		if(selDay.value=="year"){
+			day.style.display="none";
+			month.style.display="none";
+			year.style.display="flex";
+		}
+		else if(selDay.value=="month"){
+			day.style.display="none";
+			month.style.display="flex";
+			year.style.display="none";
+		}
+		else if(selDay.value=="day"){
+			day.style.display="flex";
+			month.style.display="none";
+			year.style.display="none";
+		}
+	});
+	
 
     // 타이머 post 알고리즘
     const timerTime = document.getElementById('timerTime');
@@ -319,8 +478,8 @@
     });
     timerEnd.addEventListener('click', () => {
         timerTime.textContent = '0:0:0';
+		if(h>24)return;
         const time = s + r * 60 + h * 3600;
-        console.log(time);
         axios.post('/post/timer', {
             time: time,
         });

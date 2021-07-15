@@ -69,7 +69,6 @@ module.exports = (app) => {
         res.redirect('/board');
     });
     router.post('/timer', isLoggedIn, async (req, res) => {
-        moment().format();
         const year = moment().format('YYYY');
         const month = moment().format('YYYY/MM');
         const day = moment().format('YYYY/MM/DD');
