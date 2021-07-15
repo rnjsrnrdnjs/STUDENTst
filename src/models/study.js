@@ -9,6 +9,11 @@ module.exports = class Study extends Sequelize.Model {
                     allowNull: false,
                     unique: false,
 				},
+				duration:{
+					type: Sequelize.STRING(13),
+                    allowNull: false,
+                    unique: false,
+				}
 			},
 			{
 				sequelize,

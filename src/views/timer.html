@@ -109,117 +109,149 @@
         </div>
     </div>
 
-    <div id="rank" style="display: none; margin-top: 3vh; padding: 2vw; ">
-        <div style="flex-direction: column; width: 100%;">
-            <div id="meRank" style="align-items: center;width:100%;border-bottom:1px solid #d2d2d2; margin-bottom:2vh;">
-                <span style=" flex: 1;"><img src="/photo/meMedal.png" style="width: 30px; height: 30px;"
-                    /></span>
-                    <span style="margin-left:2vw;flex: 1;">
-                        <img src="/photo/profile.png" style="width: 30px; height: 30px;border: 1px solid #d2d2d2;border-radius: 50%; 
-     padding: 2px;"
-                    /></span>
-                    <span style="flex: 3;margin-left:1vw;">김xx</span>
-					<div style="flex:6;font-size:0.7rem;">
-						
-                    <span style="margin-left:4vw;"> time-</span>
-                    <span style="margin-left:1vw;"> 2h:</span>
-                    <span> 2m:</span>
-                    <span > 2s</span>
-					</div>
-					<span style="margin-left:2vw;flex:2;font-size:0.7rem;"> 상위 13.1%</span>
-            </div>
-			
-            <div style="flex-direction:column; margin-bottom:1vh;">
-                <div id="oneRank" style="align-items: center;">
-                    <span style="    flex: 1;"><img src="/photo/oneMedal.png" style="width: 30px; height: 30px;"
-                    /></span>
-                    <span style="    flex: 1;">
-                        <img src="/photo/profile.png" style="width: 30px; height: 30px;border: 1px solid #d2d2d2;border-radius: 50%; 
-     padding: 2px;"
-                    /></span>
-                    <span style="flex: 3;margin-left:1vw;"> n수생 김xx</span>
-					<div style="flex:4;">
-						
-                    <span style="margin-left:4vw;"> time-</span>
-                    <span style="margin-left:1vw;"> 2h:</span>
-                    <span style=""> 2m:</span>
-                    <span style=""> 2s</span>
-					</div>
-                </div>
-			</div>
+    <div id="rank" style="display: none; margin-top: 3vh; padding: 2vw;flex-direction: column;">
+        <div id="navDay">
+			<select>
 				
-			<div style="flex-direction:column;margin-bottom:1vh;">
-                <div id="twoRank" style="align-items: center;">
-                    <span style="    flex: 1;"><img src="/photo/twoMedal.png" style="width: 30px; height: 30px;"
+			</select>
+		</div>
+
+            <div id="day" style="flex-direction: column; width: 100%;">
+                <div
+                    id="meRank"
+                    style="
+                        align-items: center;
+                        width: 100%;
+                        border-bottom: 1px solid #d2d2d2;
+                        margin-bottom: 2vh;
+                    "
+                >
+                    <span style="flex: 1;"
+                        ><img src="/photo/meMedal.png" style="width: 30px; height: 30px;"
                     /></span>
-                    <span style="    flex: 1;">
-                        <img src="/photo/profile.png" style="width: 30px; height: 30px;border: 1px solid #d2d2d2;border-radius: 50%; 
-     padding: 2px;"
+                    <span style="margin-left: 2vw; flex: 1;">
+                        <img
+                            src="/photo/profile.png"
+                            style="
+                                width: 30px;
+                                height: 30px;
+                                border: 1px solid #d2d2d2;
+                                border-radius: 50%;
+                                padding: 2px;
+                            "
                     /></span>
-                    <span style="flex: 3;margin-left:1vw;"> n수생 김xx</span>
-					<div style="flex:4;">
-						
-                    <span style="margin-left:4vw;"> time-</span>
-                    <span style="margin-left:1vw;"> 2h:</span>
-                    <span style=""> 2m:</span>
-                    <span style=""> 2s</span>
-					</div>
+                    <span style="flex: 3; margin-left: 1vw;">김xx</span>
+                    <div style="flex: 6; font-size: 0.7rem;">
+                        <span style="margin-left: 4vw;"> time-</span>
+                        <span style="margin-left: 1vw;"> 2h:</span>
+                        <span> 2m:</span>
+                        <span> 2s</span>
+                    </div>
+                    <span style="margin-left: 2vw; flex: 2; font-size: 0.7rem;"> 상위 13.1%</span>
                 </div>
-			</div>
-			<div style="flex-direction:column;margin-bottom:1vh;">
-                <div id="threeRank" style="align-items: center;">
-                    <span style="    flex: 1;"><img src="/photo/threeMedal.png" style="width: 30px; height: 30px;"
-                    /></span>
-                    <span style="    flex: 1;">
-                        <img src="/photo/profile.png" style="width: 30px; height: 30px;border: 1px solid #d2d2d2;border-radius: 50%; 
-     padding: 2px;"
-                    /></span>
-                    <span style="flex: 3;margin-left:1vw;"> n수생 김xx</span>
-					<div style="flex:4;">
-						
-                    <span style="margin-left:4vw;"> time-</span>
-                    <span style="margin-left:1vw;"> 2h:</span>
-                    <span style=""> 2m:</span>
-                    <span style=""> 2s</span>
-					</div>
+
+                <div style="flex-direction: column; margin-bottom: 1vh;">
+                    <div id="oneRank" style="align-items: center;">
+                        <span style="flex: 1;"
+                            ><img src="/photo/oneMedal.png" style="width: 30px; height: 30px;"
+                        /></span>
+                        <span style="flex: 1;">
+                            <img
+                                src="/photo/profile.png"
+                                style="
+                                    width: 30px;
+                                    height: 30px;
+                                    border: 1px solid #d2d2d2;
+                                    border-radius: 50%;
+                                    padding: 2px;
+                                "
+                        /></span>
+                        <span style="flex: 3; margin-left: 1vw;"> n수생 김xx</span>
+                        <div style="flex: 4;">
+                            <span style="margin-left: 4vw;"> time-</span>
+                            <span style="margin-left: 1vw;"> 2h:</span>
+                            <span style=""> 2m:</span>
+                            <span style=""> 2s</span>
+                        </div>
+                    </div>
                 </div>
-			</div>
-			<div style="flex-direction:column;margin-bottom:1vh;">
-                <div id="elseRank" style="align-items: center;">
-                    <span style="    flex: 1;"><img src="/photo/elseMedal.png" style="width: 30px; height: 30px;"
-                    /></span>
-                    <span style="    flex: 1;">
-                        <img src="/photo/profile.png" style="width: 30px; height: 30px;border: 1px solid #d2d2d2;border-radius: 50%; 
-     padding: 2px;"
-                    /></span>
-                    <span style="flex: 3;margin-left:1vw;"> n수생 김xx</span>
-					<div style="flex:4;">
-						
-                    <span style="margin-left:4vw;"> time-</span>
-                    <span style="margin-left:1vw;"> 2h:</span>
-                    <span style=""> 2m:</span>
-                    <span style=""> 2s</span>
-					</div>
+
+                <div style="flex-direction: column; margin-bottom: 1vh;">
+                    <div id="twoRank" style="align-items: center;">
+                        <span style="flex: 1;"
+                            ><img src="/photo/twoMedal.png" style="width: 30px; height: 30px;"
+                        /></span>
+                        <span style="flex: 1;">
+                            <img
+                                src="/photo/profile.png"
+                                style="
+                                    width: 30px;
+                                    height: 30px;
+                                    border: 1px solid #d2d2d2;
+                                    border-radius: 50%;
+                                    padding: 2px;
+                                "
+                        /></span>
+                        <span style="flex: 3; margin-left: 1vw;"> n수생 김xx</span>
+                        <div style="flex: 4;">
+                            <span style="margin-left: 4vw;"> time-</span>
+                            <span style="margin-left: 1vw;"> 2h:</span>
+                            <span style=""> 2m:</span>
+                            <span style=""> 2s</span>
+                        </div>
+                    </div>
                 </div>
-			</div>
-            <div style="flex-direction:column;margin-bottom:1vh;">
-                <div id="elseRank" style="align-items: center;">
-                    <span style="    flex: 1;"><img src="/photo/elseMedal.png" style="width: 30px; height: 30px;"
-                    /></span>
-                    <span style="    flex: 1;">
-                        <img src="/photo/profile.png" style="width: 30px; height: 30px;border: 1px solid #d2d2d2;border-radius: 50%; 
-     padding: 2px;"
-                    /></span>
-                    <span style="flex: 3;margin-left:1vw;"> n수생 김xx</span>
-					<div style="flex:4;">
-						
-                    <span style="margin-left:4vw;"> time-</span>
-                    <span style="margin-left:1vw;"> 2h:</span>
-                    <span style=""> 2m:</span>
-                    <span style=""> 2s</span>
-					</div>
+                <div style="flex-direction: column; margin-bottom: 1vh;">
+                    <div id="threeRank" style="align-items: center;">
+                        <span style="flex: 1;"
+                            ><img src="/photo/threeMedal.png" style="width: 30px; height: 30px;"
+                        /></span>
+                        <span style="flex: 1;">
+                            <img
+                                src="/photo/profile.png"
+                                style="
+                                    width: 30px;
+                                    height: 30px;
+                                    border: 1px solid #d2d2d2;
+                                    border-radius: 50%;
+                                    padding: 2px;
+                                "
+                        /></span>
+                        <span style="flex: 3; margin-left: 1vw;"> n수생 김xx</span>
+                        <div style="flex: 4;">
+                            <span style="margin-left: 4vw;"> time-</span>
+                            <span style="margin-left: 1vw;"> 2h:</span>
+                            <span style=""> 2m:</span>
+                            <span style=""> 2s</span>
+                        </div>
+                    </div>
                 </div>
-			</div>  
+
+                <div style="flex-direction: column; margin-bottom: 1vh;">
+                    <div id="elseRank" style="align-items: center;">
+                        <span style="flex: 1;"
+                            ><img src="/photo/elseMedal.png" style="width: 30px; height: 30px;"
+                        /></span>
+                        <span style="flex: 1;">
+                            <img
+                                src="/photo/profile.png"
+                                style="
+                                    width: 30px;
+                                    height: 30px;
+                                    border: 1px solid #d2d2d2;
+                                    border-radius: 50%;
+                                    padding: 2px;
+                                "
+                        /></span>
+                        <span style="flex: 3; margin-left: 1vw;"> n수생 김xx</span>
+                        <div style="flex: 4;">
+                            <span style="margin-left: 4vw;"> time-</span>
+                            <span style="margin-left: 1vw;"> 2h:</span>
+                            <span style=""> 2m:</span>
+                            <span style=""> 2s</span>
+                        </div>
+                    </div>
+                </div>
         </div>
     </div>
 </div>
@@ -250,62 +282,73 @@
         navTimer.style.borderBottom = '0px solid aqua';
         navRank.style.borderBottom = '2px solid aqua';
     });
-	
-	const timerTime=document.getElementById('timerTime');
-	const timerStart=document.getElementById('timerStart');
-	const timerEnd=document.getElementById('timerEnd');
-	const timerStop=document.getElementById('timerStop');
-	
-	let worker;
-	let stopTimer=true;
-	let h=0,r=0,s=0;
-	timerStart.addEventListener('click',()=>{
-		if(!window.Worker){
-			alert('해당 브라우저는 지원하지 않습니다.');
-		}
-		else{
-			if(worker && stopTimer==true)return;
-			stopTimer=true;
-			startTimer();
-		}
-	});
-	timerStop.addEventListener('click',()=>{
-		stopTimer=false;
-		if(worker){
-			worker.terminate();
-		}
-	});
-	timerEnd.addEventListener('click',()=>{
-		timerTime.textContent='0:0:0';
-		const time=s+r*60+h*3600;	
-		console.log(time);
-		axios.post('/post/timer',{
-			time:time,
-		});
-		if(worker){
-			h=0,r=0,s=0;
-			worker.terminate();
-			worker = null;
-		}
-		
-	});
-	function startTimer(){
-		if(stopTimer==true){
-			worker=new Worker('/timer.js');
-		}
-		worker.postMessage('start');
-		worker.onmessage=function(e){
-			s+=e.data.time;
-			if(s==60){
-				s=0;r++;
-			}
-			if(r==60){
-				r=0;h++;
-			}
-			timerTime.textContent=`${h}:${r}:${s}`;
-		}
-	}
-	
-	
+
+    // 타이머 post 알고리즘
+    const timerTime = document.getElementById('timerTime');
+    const timerStart = document.getElementById('timerStart');
+    const timerEnd = document.getElementById('timerEnd');
+    const timerStop = document.getElementById('timerStop');
+
+    let worker;
+    let stopTimer = true;
+    let h = 0,
+        r = 0,
+        s = 0;
+    let notWorker;
+    timerStart.addEventListener('click', () => {
+        if (!window.Worker) {
+            if (stopTimer == true) {
+                notWorker = setInterval(() => {
+                    s++;
+                }, 1000);
+                stopTimer = true;
+            }
+        } else {
+            if (worker && stopTimer == true) return;
+            stopTimer = true;
+            startTimer();
+        }
+    });
+    timerStop.addEventListener('click', () => {
+        stopTimer = false;
+        if (worker) {
+            worker.terminate();
+        } else {
+            clearInterval(notWorker);
+        }
+    });
+    timerEnd.addEventListener('click', () => {
+        timerTime.textContent = '0:0:0';
+        const time = s + r * 60 + h * 3600;
+        console.log(time);
+        axios.post('/post/timer', {
+            time: time,
+        });
+        if (worker) {
+            (h = 0), (r = 0), (s = 0);
+            worker.terminate();
+            worker = null;
+        } else {
+            clearInterval(notWorker);
+        }
+    });
+    function startTimer() {
+        if (stopTimer == true) {
+            worker = new Worker('/timer.js');
+        }
+        worker.postMessage('start');
+        worker.onmessage = function (e) {
+            s += e.data.time;
+            if (s == 60) {
+                s = 0;
+                r++;
+            }
+            if (r == 60) {
+                r = 0;
+                h++;
+            }
+            timerTime.textContent = `${h}:${r}:${s}`;
+        };
+    }
 </script>
 {% endblock %}

@@ -1,78 +1,155 @@
-const express=require('express');
-const router=express.Router();
-const path=require('path');
+const express = require('express');
+const router = express.Router();
+const path = require('path');
 const multer = require('multer');
-const fs=require('fs');
+const fs = require('fs');
+const moment = require('moment');
 
-const { User,Comment,Like,Memo,Note,Post,Study } = require('../../models');
+const { User, Comment, Like, Memo, Note, Post, Study } = require('../../models');
 
+const { isLoggedIn } = require('../middlewares');
 
-const {isLoggedIn}=require('../middlewares');
-
-try{
-	fs.readdirSync('uploads');
-}catch(error){
-	console.error('uploads 폴더가 없어 uploads 폴더를 생성합니다.');
-	fs.mkdirSync('uploads');
+try {
+    fs.readdirSync('uploads');
+} catch (error) {
+    console.error('uploads 폴더가 없어 uploads 폴더를 생성합니다.');
+    fs.mkdirSync('uploads');
 }
-const uploads=multer({
-	storage:multer.diskStorage({
-		destination(req,file,cb){
-			cb(null,'uploads/');
-		},
-		filename(req,file,cb){
-			const ext=path.extname(file.originalname);
-			cb(null,path.basename(file.originalname,ext)+Date.now()+ext);
-		},
-	}),
-	limits:{fileSize:5*1024*1024},
+const uploads = multer({
+    storage: multer.diskStorage({
+        destination(req, file, cb) {
+            cb(null, 'uploads/');
+        },
+        filename(req, file, cb) {
+            const ext = path.extname(file.originalname);
+            cb(null, path.basename(file.originalname, ext) + Date.now() + ext);
+        },
+    }),
+    limits: { fileSize: 5 * 1024 * 1024 },
 });
 
+module.exports = (app) => {
+    app.use('/post', router);
 
+    router.post('/img', isLoggedIn, uploads.single('img'), (req, res) => {
+        console.log(req.file);
+        res.json({ url: `/img/${req.file.filename}` });
+    });
 
-module.exports=(app)=>{
-	app.use('/post',router);
-	
-	router.post('/img',isLoggedIn,uploads.single('img'),(req,res)=>{
-		console.log(req.file);
-		res.json({url:`/img/${req.file.filename}`});
-	});
-	
-	router.post('/profile',isLoggedIn,async(req,res)=>{
-		const user=await User.findOne({
-			where:{
-				id:req.user.id,
-			}
-		});
-		await user.update({
-			nick:req.body.nick,
-			nth:req.body.nth,
-			profile:req.body.profile,
-			studystart:1,
-		},{
-			where:{
-				id:req.user.id,
-			}
-		});
+    router.post('/profile', isLoggedIn, async (req, res) => {
+        const user = await User.findOne({
+            where: {
+                id: req.user.id,
+            },
+        });
+        await user.update(
+            {
+                nick: req.body.nick,
+                nth: req.body.nth,
+                profile: req.body.profile,
+                studystart: 1,
+            },
+            {
+                where: {
+                    id: req.user.id,
+                },
+            }
+        );
+
+        res.redirect('/board');
+    });
+    router.post('/write', isLoggedIn, async (req, res) => {
+        const post = await Post.create({
+            UserId: req.user.id,
+            title: req.body.title,
+            category: req.body.category,
+            content: req.body.content,
+            img: req.body.img,
+        });
+        res.redirect('/board');
+    });
+    router.post('/timer', isLoggedIn, async (req, res) => {
+        moment().format();
+        const year = moment().format('YYYY');
+        const month = moment().format('YYYY/MM');
+        const day = moment().format('YYYY/MM/DD');
+
+        const dayTimer = await Study.findOne({
+            where: {
+                UserId: req.user.id,
+                duration: day,
+            },
+        });
+        const monthTimer = await Study.findOne({
+            where: {
+                UserId: req.user.id,
+                duration: month,
+            },
+        });
+        const yearTimer = await Study.findOne({
+            where: {
+                UserId: req.user.id,
+                duration: year,
+            },
+        });
+        if (dayTimer) {
+            const a=await Study.increment(
+                {
+                    time: req.body.time,
+                },
+                {
+                    where: {
+                        UserId: req.user.id,
+						duration:day
+                    },
+                }
+            );
+        } else {
+            await Study.create({
+                UserId: req.user.id,
+                time: req.body.time,
+                duration: day,
+            });
+        }
+        if (monthTimer) {
+            await Study.increment(
+                {
+                    time: req.body.time,
+                },
+                {
+                    where: {
+                        UserId: req.user.id,
+						duration:month
+                    },
+                }
+            );
+        } else {
+            await Study.create({
+                UserId: req.user.id,
+                time: req.body.time,
+                duration: month,
+            });
+        }
+        if (yearTimer) {
+            await Study.increment(
+                {
+                    time: req.body.time,
+                },
+                {
+                    where: {
+                        UserId: req.user.id,
+						duration:year
+                    },
+                }
+            );
+        } else {
+            await Study.create({
+                UserId: req.user.id,
+                time: req.body.time,
+                duration: year,
+            });
+        }
 		
-		res.redirect('/board');
-	});
-	router.post('/write',isLoggedIn,async(req,res)=>{
-		const post=await Post.create({
-			UserId:req.user.id,
-			title:req.body.title,
-			category:req.body.category,
-			content:req.body.content,
-			img:req.body.img,
-		});
-		res.redirect('/board');
-	});
-	router.post('/timer',isLoggedIn,async(req,res)=>{
-		const timer=await Study.create({
-			UserId:req.user.id,
-			time:req.body.time,
-		});
-		console.log(timer);
-		res.json('ok');
-	});
-}
+        res.json('ok');
+    });
+};
