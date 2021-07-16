@@ -154,12 +154,43 @@ module.exports=(app)=>{
 	});
 	router.get('/setting',isLoggedIn,async(req,res,next)=>{
 		try{
-			const myStudy=await Study.findAll({
-				
-			});
+      		const month = moment().format('YYYY/MM');
+			const findDay={};
+
+			const monthStudy=[];
+			for(let i=1;i<=31;i++){
+				if(i<10)
+					findDay[i]=month+"/0"+i;
+				else
+					findDay[i]=month+"/"+i;
+			}
+			for(let d in findDay){
+				const myStudy=await Study.findOne({
+					where:{	
+						UserId:req.user.id,
+						duration:findDay[d],
+					},
+				});
+				if(myStudy)await monthStudy.push(myStudy.time);
+				else{
+					await monthStudy.push(0)
+				}
+			}
 			res.render('setting',{
-				myStudy,
+				monthStudy,
 			});
+		}catch(err){
+			console.error(err);
+		}
+	});
+	router.get('/mypost',isLoggedIn,async(req,res,next)=>{
+		try{
+			const Post=await Post.findAll({
+				where:{
+					UserId:req.user.id,
+				},
+			});
+			res.render('mypost');
 		}catch(err){
 			console.error(err);
 		}
