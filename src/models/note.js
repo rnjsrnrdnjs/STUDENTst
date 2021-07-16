@@ -5,7 +5,7 @@ module.exports = class Note extends Sequelize.Model {
         return super.init(
             {
 				content:{
-					type: Sequelize.STRING(1000),
+					type: Sequelize.STRING(600),
                     allowNull: false,
                     unique: false,
 				},

@@ -35,14 +35,30 @@ module.exports = (app) => {
         console.log(req.file);
         res.json({ url: `/img/${req.file.filename}` });
     });
-
+	router.post('/profile/img', isLoggedIn,uploads.single('img'), async (req, res) => {
+		try{
+		await User.update(
+            {
+                profile: `/img/${req.file.filename}`,
+            },
+            {
+                where: {
+                    id: req.user.id,
+                },
+            }
+        );
+		res.json({ url: `/img/${req.file.filename}` });
+		}catch(err){
+			console.error(err);
+		}
+    });
     router.post('/profile', isLoggedIn, async (req, res) => {
         const user = await User.findOne({
             where: {
                 id: req.user.id,
             },
         });
-        await user.update(
+        await User.update(
             {
                 nick: req.body.nick,
                 nth: req.body.nth,
@@ -58,6 +74,19 @@ module.exports = (app) => {
 
         res.redirect('/board');
     });
+	
+	router.post('/memo', isLoggedIn, async (req, res) => {
+		try{
+			await Memo.create({
+				UserId:req.user.id,
+				content:req.body.content,
+			});
+			res.json('ok');
+		}catch(err){
+			console.error(err);
+		}
+	});
+    
     router.post('/write', isLoggedIn, async (req, res) => {
         const post = await Post.create({
             UserId: req.user.id,

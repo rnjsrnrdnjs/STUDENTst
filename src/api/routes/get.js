@@ -146,8 +146,22 @@ module.exports=(app)=>{
 	});
 	router.get('/room',isLoggedIn,async(req,res,next)=>{
 		try{
-			
-			res.render('room');
+			const memo=await Memo.findAll({
+				where:{
+					UserId:req.user.id,
+				},
+				order: [['createdAt', 'DESC']],
+			});
+			const note=await Note.findAll({
+				where:{
+					UserId:req.user.id,
+				},
+				order: [['createdAt', 'DESC']],
+			});
+			console.log(memo,note);
+			res.render('room',{
+				memo,note
+			});
 		}catch(err){
 			console.error(err);
 		}
@@ -171,7 +185,7 @@ module.exports=(app)=>{
 						duration:findDay[d],
 					},
 				});
-				if(myStudy)await monthStudy.push(myStudy.time);
+				if(myStudy)await monthStudy.push( (myStudy.time/3600).toFixed(4));
 				else{
 					await monthStudy.push(0)
 				}
@@ -185,12 +199,17 @@ module.exports=(app)=>{
 	});
 	router.get('/mypost',isLoggedIn,async(req,res,next)=>{
 		try{
-			const Post=await Post.findAll({
+			const myPost=await Post.findAll({
+				include:{
+					model:User,
+				},
 				where:{
 					UserId:req.user.id,
 				},
 			});
-			res.render('mypost');
+			res.render('mypost',{
+				myPost
+			});
 		}catch(err){
 			console.error(err);
 		}

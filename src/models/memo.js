@@ -5,7 +5,7 @@ module.exports = class Memo extends Sequelize.Model {
         return super.init(
             {
 				content:{
-					type: Sequelize.STRING(400),
+					type: Sequelize.STRING(200),
                     allowNull: false,
                     unique: false,
 				},

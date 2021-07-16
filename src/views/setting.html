@@ -12,7 +12,7 @@
             box-shadow: 2px 2px grey;
             background: linear-gradient(90deg, white, transparent);
             width: 100%;
-            height: 300px;
+            height: 250px;
             padding: 2vw;
             flex-direction: column;
             border-radius: 10px;
@@ -22,7 +22,8 @@
             <span style="" onClick="location.href='/logout';">로그아웃</span> <span id="deleteMe" style="margin-left: 3vw;">계정삭제</span>
         </div>
         <div style="justify-content: center;">
-            <img
+			<label  for="img">
+            <img id="imgUrl"
                 src="{{user.profile}}"
                 style="
                     width: 100px;
@@ -32,6 +33,9 @@
                     padding: 5px;
                 "
             />
+				</label>
+			<input id="img"  style="display:none;" type="file" accept="image/*"  />
+			
         </div>
         <div style="margin-top:3vh; justify-content: center;align-items: center;">
             <span>{{user.nth}}수생 {{user.nick}}xx</span>
@@ -61,6 +65,7 @@
                 margin-top: 2vh;
                 margin-bottom: 2vh;
             "
+			onClick="location.href='/mypost';"
         >
             내가쓴 글
         </div>
@@ -90,7 +95,7 @@
 </div>
 
 
-<div id="chartData"style="display:none;">
+<div id="chartTime"style="display:none;">
 	{% for list in monthStudy %}
 		<div>
 		{{list}}
@@ -126,17 +131,40 @@
 			return false;
 		}
 	});
-	const charData=[];
+	const chartTime=document.getElementById('chartTime');
+	const chartData=[];
+	let idx=1;
+	while(chartTime.childNodes[idx]){
+		chartData.push(chartTime.childNodes[idx].textContent);
+		idx+=2;
+	}	  
 	
-		  
+	
+	if (document.getElementById('img')) {
+      document.getElementById('img').addEventListener('change', function(e) {
+        const formData = new FormData();
+        console.log(this, this.files);
+        formData.append('img', this.files[0]);
+        axios.post('/post/profile/img', formData)
+          .then((res) => {
+			const imgUrl=document.getElementById('imgUrl');
+			imgUrl.src=res.data.url;
+          })
+          .catch((err) => {
+            console.error(err);
+          });
+      });
+    }
+	
+	
 	// 공부 차트
 	new Chart(document.getElementById("line-chart"), {
   type: 'line',
   data: {
-    labels: ["1일","2일","3일","4일","5일","6일","7일","8일","9일","10일","11일","12일","13일","14일","15일","16일","17일","18일","19일","20일","21일","22일","23일","24일","25일","26일","27일","28일","29일","30일","31일"],
+    labels: ["1일  ","2일","3일   ","4일","5일   ","6일","7일   ","8일","9일   ","10일","11일   ","12일","13일   ","14일","15일   ","16일","17일   ","18일","19일   ","20일","21일   ","22일","23일   ","24일","25일   ","26일","27일   ","28일","29일   ","30일","31일   "],
     datasets: [{ 
-        data: [1+"분",20000,3,4,5,6,7,8,9,10,11,3,3,3,3,3,32,2,2,,1,1,1,1,0],
-        label: "월별 공부기록 (시간단위)",
+        data: chartData,
+        label: "시간단위",
         borderColor: "#7ee5cc",
 		backgroundColor:"#d8f0e3",
         fill: true
@@ -144,8 +172,17 @@
     ]
   },
   options: {
+	  maintainAspectRatio: false,
 	 // responsive: false,
+	   scales: {
+            yAxes: [{
+                ticks: {
+                    beginAtZero:true
+                }
+            }]
+        },
     title: {
+	  text:"공부시간",
       display: true,
     }
   }

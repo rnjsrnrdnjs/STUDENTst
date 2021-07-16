@@ -7,27 +7,13 @@
 	</div>
 </div>
 <div class="board" >
-	<div class="homeContent">
-		<div style="justify-content: center;
-    padding: 1vw;
-    border-bottom: 1px solid #d2d2d2;"> <span id="talk" style="align-items: center;border-bottom:2px solid aqua;cursor:pointer;"><img src="/photo/talk.png" style="width:30px; height:30px;">공시생잡담</span> <span id="pass" style="margin-left:3vw;align-items: center;cursor:pointer;"><img src="/photo/pass.png" style="width:30px; height:30px;"> 합격후기</span>
-		</div>
-		<!--글쓰기-->
-		<div id="writePost" onClick="location.href='/write';" style="    align-items: center;
-    margin-top: 1vh;
-    margin-bottom: 1vh;
-    flex: 1;
-    justify-content: flex-end;
-    cursor: pointer;
-    margin-right: 2vw;">
-			<img src="/photo/writing.png" style="width:30px; height:30px; ">글작성
-		</div>
+	
 		
-		<div id="gossip"style="flex-direction:column; margin-top:3vh;flex-wrap:wrap;">
+		<div id="mypost"style="flex-direction:column; margin-top:3vh;flex-wrap:wrap;">
 			
 			<!-- 이곳에 게시판글 나타냄
 			-->
-			{% for post in talk %}
+			{% for post in myPost %}
 			<div style="transform: translate(-2vw);
     width: 80%;">
 				
@@ -69,15 +55,6 @@
 				</div>
 			</div>
 			{% endfor %}
-		</div>
-		
-		<div id="hoogi">
-			<!-- 이곳에 게시판글 나타냄
-			-->
-			<div >
-			</div>
-			
-		</div>
 		
 	</div>
 </div>
@@ -101,23 +78,7 @@
 		},500);
 	});
 	
-	const talk=document.getElementById('talk');
-	const pass=document.getElementById('pass');
-	const gossip=document.getElementById('gossip');
-	const hoogi=document.getElementById('hoogi');
 	
-	talk.addEventListener('click',()=>{
-		gossip.style.display="flex";
-		hoogi.style.display="none";
-		talk.style.borderBottom="2px solid aqua";
-		pass.style.borderBottom="0px solid aqua";
-	});
-	pass.addEventListener('click',()=>{
-		gossip.style.display="none";
-		hoogi.style.display="flex";
-		pass.style.borderBottom="2px solid aqua";
-		talk.style.borderBottom="0px solid aqua";
-	});
 	
 	
 </script>
