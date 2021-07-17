@@ -22,23 +22,54 @@ module.exports=(app)=>{
 	router.get('/board',isLoggedIn,async(req,res,next)=>{
 		try{
 			const talk=await Post.findAll({
-				include:{
+				include:[{
 					model:User,
-				},
+				},{
+					model:Like,
+				}],
 				where:{
 					category:"talk",
 				},
 				order: [['createdAt', 'DESC']],
 			});
+			for(let i in talk){
+				talk[i].tof="false";
+				let cnt=0;
+				for(let j in talk[i].Likes){
+					if(talk[i].Likes[j].UserId==req.user.id && talk[i].Likes[j].toggle=="true"){
+						talk[i].tof="true";
+					}
+					if(talk[i].Likes[j].toggle=="true"){
+					   cnt++;
+					}
+				}
+				talk[i].cnt=cnt;
+			}
 			const pass=await Post.findAll({
-				include:{
+				include:[{
 					model:User,
-				},
+				},{
+					model:Like,
+				}],
 				where:{
 					category:"pass",
 				},
 				order: [['createdAt', 'DESC']],
 			});
+			for(let i in pass){
+				pass[i].tof="false";
+				let cnt=0;
+				for(let j in pass[i].Likes){
+					if(pass[i].Likes[j].UserId==req.user.id && pass[i].Likes[j].toggle=="true"){
+						pass[i].tof="true";
+					}
+					if(pass[i].Likes[j].toggle=="true"){
+					   cnt++;
+					}
+				}
+				pass[i].cnt=cnt;
+			}
+			console.log(pass);
 			res.render('board',{
 				talk,pass,
 			});

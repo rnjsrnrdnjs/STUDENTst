@@ -52,6 +52,65 @@ module.exports = (app) => {
 			console.error(err);
 		}
     });
+	router.post('/delPost', isLoggedIn, async (req, res) => {
+		try{
+			await Post.destroy({
+				where:{
+					id:req.body.id,
+				},
+			});
+			res.json('ok');
+		}catch(err){
+			console.error(err);
+		}
+	});
+	router.post('/like', isLoggedIn, async (req, res) => {
+		try{
+			const like=await Like.findOne({
+				where:{
+					UserId:req.user.id,
+					PostId:req.body.id,
+				}
+			});
+			if(like){
+				if(like.toggle=="true"){
+					await Like.update({
+							toggle:"false",
+					},{
+						where:{
+							UserId:req.user.id,
+							PostId:req.body.id,
+						},
+					});
+					res.json({tof:"false"});
+				}
+				else{
+					await Like.update({
+							toggle:"true",
+					},{
+						where:{
+							UserId:req.user.id,
+							PostId:req.body.id,
+						},
+					});
+					res.json({tof:"true"});
+					
+				}
+			}
+			else{
+				await Like.create({
+					UserId:req.user.id,
+					PostId:req.body.id,
+					toggle:"true",
+				});
+				res.json({tof:"true"});
+			}
+			
+		}catch(err){
+			console.error(err);
+		}
+	});
+	
     router.post('/profile', isLoggedIn, async (req, res) => {
         const user = await User.findOne({
             where: {
@@ -86,6 +145,45 @@ module.exports = (app) => {
 			console.error(err);
 		}
 	});
+	router.post('/delMemo', isLoggedIn, async (req, res) => {
+		try{
+			await Memo.destroy({
+				where:{
+					id:req.body.id,
+				}
+			});
+			res.json('ok');
+		}catch(err){
+			console.error(err);
+		}
+	});
+	
+	
+	
+	router.post('/note', isLoggedIn, async (req, res) => {
+		try{
+			await Note.create({
+				UserId:req.user.id,
+				content:req.body.content,
+			});
+			res.json('ok');
+		}catch(err){
+			console.error(err);
+		}
+	});
+	router.post('/delNote', isLoggedIn, async (req, res) => {
+		try{
+			await Note.destroy({
+				where:{
+					id:req.body.id,
+				}
+			});
+			res.json('ok');
+		}catch(err){
+			console.error(err);
+		}
+	});
+	
     
     router.post('/write', isLoggedIn, async (req, res) => {
         const post = await Post.create({

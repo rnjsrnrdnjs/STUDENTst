@@ -1,7 +1,7 @@
 {% extends 'index.html' %} {% block content %}
 <div class="board" style="background: url(/photo/room.jpeg) no-repeat; background-size: 100% 100%;">
     <div class="calender">
-		<!--
+        <!--
         <div>
             시험 날짜를
         </div>
@@ -28,7 +28,7 @@
 
     <div class="note">
         <div>
-            기록은 중요한 
+            기록은 중요한
         </div>
         <div>
             습관이에요.
@@ -38,63 +38,130 @@
         </div>
     </div>
 </div>
-<div class="memoList" style="display:none;text-shadow: -1px 0 white, 0 1px white, 1px 0 white, 0 -1px white;">
-	<div id="memoBack" style="    position: absolute;
-    left: 1vw;
-    z-index: 1;">
-		<span><img src="/photo/back.png" style="width:40px;height:40px;"/> </span>
-	</div>
-	<div  style="padding: 35px;flex-direction:column;
-	position:absolute;
-	left:0px;
-    width: 300px;
-    height: 300px;
-    background: url(/photo/memo.png) no-repeat;
-    background-size: 100% 100%;">
-		<textarea id="writeMemo"  style="resize: none;
-    width: 100%;
-    height: 90%;
-    border: none;
-    background: transparent;" required maxlength="200" placeholder="내용(최대200글자)" name="content"></textarea>
-		<div id="completeMemo">
-			<img src="/photo/memoBtn.png" style="width:30px;height:30px;">작성
-		</div>
-	</div>
-	{% for item in memo %}
-	<div style="padding: 35px;
+<div
+    class="memoList"
+    style="display: none; text-shadow: -1px 0 white, 0 1px white, 1px 0 white, 0 -1px white;"
+>
+    <div id="memoBack" style="position: absolute; left: 1vw; z-index: 1;">
+        <span><img src="/photo/back.png" style="width: 40px; height: 40px;" /> </span>
+    </div>
+    <div
+        style="
+            padding: 35px;
+            flex-direction: column;
+            position: absolute;
+            left: 0px;
+            width: 300px;
+            height: 300px;
+            background: url(/photo/memo.png) no-repeat;
+            background-size: 100% 100%;
+        "
+    >
+        <textarea
+            id="writeMemo"
+            style="resize: none; width: 100%; height: 90%; border: none; background: transparent;"
+            required
+            maxlength="200"
+            placeholder="내용(최대200글자)"
+            name="content"
+        ></textarea>
+        <div id="completeMemo">
+            <img src="/photo/memoBtn.png" style="width: 30px; height: 30px;" />작성
+        </div>
+    </div>
+    {% for item in memo %}
+    <div
+        style="padding: 35px;
 	position:absolute;
 	left:{{(loop.index)*300}}px;
     width: 300px;
     height: 300px;
     background: url(/photo/memo.png) no-repeat;
-    background-size: 100% 100%;flex-direction:column;">
-		<div style="font-size:0.7rem;">
-			{{item.createdAt.getFullYear()}}년 {{item.createdAt.getMonth()+1}}월 {{item.createdAt.getDate()}}일 {{item.createdAt.getHours()+9}}시 {{item.createdAt.getMinutes()}}분 {{item.createdAt.getSeconds()}}초
-		</div>
-		<div>
-			{{item.content}}
-		</div>
-	</div>
-	{% endfor %}
+    background-size: 100% 100%;flex-direction:column;"
+    >
+        <div style="font-size: 0.7rem;">
+            <span style="flex: 4;">
+                {{item.createdAt.getFullYear()}}년 {{item.createdAt.getMonth()+1}}월
+                {{item.createdAt.getDate()}}일 {{item.createdAt.getHours()+9}}시
+                {{item.createdAt.getMinutes()}}분 {{item.createdAt.getSeconds()}}초
+            </span>
+            <span onClick="delMemo({{item.id}})"
+                ><img src="/photo/trash.png" style="width: 15px; height: 15px;"
+            /></span>
+        </div>
+        <div>
+            {{item.content}}
+        </div>
+    </div>
+    {% endfor %}
 </div>
-<div class="noteList" style="display:none;display:none;text-shadow: -1px 0 white, 0 1px white, 1px 0 white, 0 -1px white;">
-	<div id="noteBack" style=" margin-left:2vw;">
-		<span><img src="/photo/back.png" style="width:40px;height:40px;"/> </span>
-	</div>
-	<div style="width: 80%;
-    height: 80%;
-    margin-left: 10%;
-    padding: 5vw;
-    margin-top: 15%;">
-		<div id="">
-			
-		</div>
-		<div id="writeNote">
-			
-		</div>
-	</div>
-</div>
+<div
+    class="noteList"
+    style="
+        display: none;
+        display: none;
+        text-shadow: -1px 0 white, 0 1px white, 1px 0 white, 0 -1px white;
+        flex-direction: column;
+    "
+>
+    <div id="noteBack" style="margin-left: 2vw;">
+        <span><img src="/photo/back.png" style="width: 40px; height: 40px;" /> </span>
+    </div>
+    <div style="width: 80%; height: 80%; margin-left: 10%; padding: 5vw; flex-direction: column;">
+        <div
+            id="makeNote"
+            style="cursor: pointer; align-items: center; flex-direction: row-reverse;"
+        >
+            글쓰기<img src="/photo/writing.png" style="width: 30px; height: 30px;" />
+        </div>
+        <div id="writeNote" style="height: 100%; display: none;flex-direction:column;">
+            <textarea id="textNote"
+                style="
+                    resize: none;
+                    height: 100%;
+                    width: 100%;
+                    background: transparent;
+                    border: none;
+                "
+                required
+                maxlength="600"
+                placeholder="내용(최대600글자)"
+            ></textarea>
+			<div id="postNote" style="align-items:center;cursor:pointer;">
+				<img src="/photo/noteBtn.png" style="Width:30px;height:30px;">작성
+			</div>
+        </div>
 
+		<div id="seeNote">
+			
+		{% for item in note %}
+		{% if loop.index==1 %}
+        <div id="note{{loop.index}}" style="flex-direction: column;margin-top:3vh;">
+		{% else %}
+        <div id="note{{loop.index}}" style="flex-direction: column;display:none;margin-top:3vh;">
+		{% endif %}
+            <div style="font-size: 0.6rem;margin-bottom:2vh;    align-items: center;">
+				<span onClick="delNote({{item.id}})"style="cursor:pointer;margin-right:20px;">
+					<img src="/photo/trash.png" style="width:20px;height:20px;">
+				</span>
+				<span>{{item.createdAt.getFullYear()}}년 {{item.createdAt.getMonth()+1}}월
+                {{item.createdAt.getDate()}}일 {{item.createdAt.getHours()+9}}시
+					{{item.createdAt.getMinutes()}}분 {{item.createdAt.getSeconds()}}초</span>
+			</div>
+            <div>
+				{{item.content}}
+			</div>
+            <div id="prev" style="position: absolute; top: 40%; left: 5%;" onClick="prev({{loop.index}})" >
+                <img src="/photo/left.png" style="width;30px;height:30px;cursor:pointer;" />
+            </div>
+            <div id="next" style="position: absolute; top: 40%; right: 5%;" onClick="next({{loop.index}})">
+                <img src="/photo/right.png" style="width;30px;height:30px;cursor:pointer;" />
+            </div>
+        </div>
+		{% endfor %}
+		</div>
+    </div>
+</div>
 
 {% endblock %} {% block script %}
 <script>
@@ -103,47 +170,120 @@
     const nav = document.getElementsByClassName('nav')[0];
     nav.style.display = 'flex';
     nav.childNodes[5].style.borderBottom = '3px solid aquamarine';
-	
-	const memo=document.getElementsByClassName('memo')[0];
-	const note=document.getElementsByClassName('note')[0];
-	const memoList=document.getElementsByClassName('memoList')[0];
-	const noteList=document.getElementsByClassName('noteList')[0];
-	const board=document.getElementsByClassName('board')[0];
-	const memoBack=document.getElementById('memoBack');
-	const noteBack=document.getElementById('noteBack');
-	
-	const completeMemo=document.getElementById('completeMemo');
-	completeMemo.addEventListener('click',()=>{
-		const writeMemo=document.getElementById('writeMemo');
-		console.log(writeMemo.value);
-		axios.post('/post/memo',{
-			content:writeMemo.value,
+
+    const memo = document.getElementsByClassName('memo')[0];
+    const note = document.getElementsByClassName('note')[0];
+    const memoList = document.getElementsByClassName('memoList')[0];
+    const noteList = document.getElementsByClassName('noteList')[0];
+    const board = document.getElementsByClassName('board')[0];
+    const memoBack = document.getElementById('memoBack');
+    const noteBack = document.getElementById('noteBack');
+    const makeNote = document.getElementById('makeNote');
+    const writeNote = document.getElementById('writeNote');
+    const postNote = document.getElementById('postNote');
+    const seeNote = document.getElementById('seeNote');
+
+    makeNote.addEventListener('click', () => {
+		writeNote.style.display="flex";
+		seeNote.style.display="none";
+	});
+	postNote.addEventListener('click',()=>{
+		const textNote=document.getElementById('textNote');
+		axios.post('/post/note',{
+			content:textNote.value,
 		}).then((res)=>{
 			location.reload();
 		});
 	});
-	
-	memo.addEventListener('click',()=>{
-		memoList.style.display="flex";
-		noteList.style.display="none";
-		board.style.opacity="0.5";
-	});
-	memoBack.addEventListener('click',()=>{
-		memoList.style.display="none";
-		noteList.style.display="none";
-		board.style.opacity="1";
-	});
-	note.addEventListener('click',()=>{
-		memoList.style.display="none";
-		noteList.style.display="flex";
-		board.style.opacity="0.5";
-		
-	});
-	noteBack.addEventListener('click',()=>{
-		memoList.style.display="none";
-		noteList.style.display="none";
-		board.style.opacity="1";
-	});
-	
+
+    const completeMemo = document.getElementById('completeMemo');
+    completeMemo.addEventListener('click', () => {
+        const writeMemo = document.getElementById('writeMemo');
+        console.log(writeMemo.value);
+        axios
+            .post('/post/memo', {
+                content: writeMemo.value,
+            })
+            .then((res) => {
+                location.reload();
+            });
+    });
+
+    memo.addEventListener('click', () => {
+        memoList.style.display = 'flex';
+        noteList.style.display = 'none';
+        board.style.opacity = '0.5';
+    });
+    memoBack.addEventListener('click', () => {
+        memoList.style.display = 'none';
+        noteList.style.display = 'none';
+        board.style.opacity = '1';
+    });
+    note.addEventListener('click', () => {
+        memoList.style.display = 'none';
+        noteList.style.display = 'flex';
+        board.style.opacity = '0.5';
+    });
+    noteBack.addEventListener('click', () => {
+        memoList.style.display = 'none';
+        noteList.style.display = 'none';
+		writeNote.style.display="none";
+		seeNote.style.display="flex";
+        board.style.opacity = '1';
+    });
+
+    function delMemo(id) {
+        axios
+            .post('/post/delMemo', {
+                id: id,
+            })
+            .then((res) => {
+                location.reload();
+            });
+    }
+	    function delNote(id) {
+        axios
+            .post('/post/delNote', {
+                id: id,
+            })
+            .then((res) => {
+                location.reload();
+            });
+    }
+	let maxNoteIdx=1;
+	while(true){
+		if(document.getElementById(`note${maxNoteIdx}`)){
+		   maxNoteIdx++;
+		}
+		else {
+		   maxNoteIdx--;
+			break;
+		}
+	}
+	console.log(maxNoteIdx);
+	function prev(id){
+		const current=document.getElementById(`note${id}`);
+		if(id==1){
+			const prev=document.getElementById(`note${maxNoteIdx}`);
+			prev.style.display="flex";
+		}
+		else{
+			const prev=document.getElementById(`note${id-1}`);
+			prev.style.display="flex";
+		}
+		current.style.display="none";
+	}
+	function next(id){
+		const current=document.getElementById(`note${id}`);
+		if(id==maxNoteIdx){
+			const next=document.getElementById(`note1`);
+			next.style.display="flex";
+		}
+		else{
+			const next=document.getElementById(`note${id+1}`);
+			next.style.display="flex";
+		}
+		current.style.display="none";
+	}
 </script>
 {% endblock %}

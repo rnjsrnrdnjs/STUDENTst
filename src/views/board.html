@@ -49,9 +49,16 @@
 					<div style="align-items:center;">
 						<span style="margin-left:2vw;background: white;
     border-radius: 50%;
-    padding: 5px;    border: 1px solid #d2d2d2;"><img src="{{post.User.profile}}" style="width:30px; height:30px;border-radius: 50%;"> </span><span style="margin-left:2vw;">{{post.User.nth}}수생 {{post.User.nick}}xx</span> <span style="margin-left:2vw;"> 09:00:00</span>
-						<span></span>
+    padding: 5px;    border: 1px solid #d2d2d2;"><img src="{{post.User.profile}}" style="width:30px; height:30px;border-radius: 50%;"> </span><span style="margin-left:2vw;">{{post.User.nth}}수생 {{post.User.nick}}xx</span> 
+						
+					{% if user.id==post.UserId %}
+						<span onClick="delPost({{post.id}});" style="margin-left: 40px;"><img src="/photo/trash.png" style="width:20px;height:20px;"></span>
+					{% endif %}
+						
 					</div>
+					<div style="margin-left:2vw;font-size:0.6rem;"> {{post.createdAt.getFullYear()}}년 {{post.createdAt.getMonth()+1}}월
+                {{post.createdAt.getDate()}}일 {{post.createdAt.getHours()+9}}시
+                {{post.createdAt.getMinutes()}}분 {{post.createdAt.getSeconds()}}초</div>
 					<div style="padding:2vw;font-size:0.7rem;">
 						{{post.title}}
 					</div>
@@ -63,19 +70,102 @@
 					{% endif %}
 				
 					<div style="padding-left:2vw;padding-bottom: 5vh;">
-						<span style="align-items:center;margin-right:1vw;cursor:pointer;"><img src="/photo/message.png" style="width:30px; height:30px;margin-right:1vw;"> 0</span>
-						<span style="align-items:center;margin-right:1vw;cursor:pointer;"><img src="/photo/likeBE.png" style="width:30px; height:30px;margin-right:1vw;"> 0</span>
+						<!--
+						<span onClick="comment({{post.id}});" style="align-items:center;margin-right:1vw;cursor:pointer;"><img src="/photo/message.png" style="width:30px; height:30px;margin-right:1vw;"> 0</span>-->
+						
+						<span onClick="glike({{post.id}},{{loop.index}});" style="align-items:center;margin-right:1vw;cursor:pointer;">
+							{% if post.tof=='false' %}
+							<img src="/photo/likeBE.png" id="glike{{loop.index}}"style="width:30px; height:30px;margin-right:1vw;">
+							{% else %}
+														<img src="/photo/likeAF.png" id="glike{{loop.index}}"style="width:30px; height:30px;margin-right:1vw;">
+
+							{% endif %}
+							<span id="glikeLength{{loop.index}}">
+							{{post.cnt}}
+							</span></span>
 					</div>
+					<!-- 댓글
+					{% for comment in post %}
+					<div>
+						
+					</div>
+					{% endfor %}
+					-->
 				</div>
 			</div>
 			{% endfor %}
 		</div>
 		
-		<div id="hoogi">
+		<div id="hoogi" style="flex-direction:column; margin-top:3vh;flex-wrap:wrap;">
 			<!-- 이곳에 게시판글 나타냄
 			-->
-			<div >
+			{% for post in pass %}
+			<div style="transform: translate(-2vw);
+    width: 80%;">
+				
+				<div style="    width: 10%;
+    border-top: 2px solid gray;
+    border-right: 2px solid gray;">
+				</div>
+				<div style=" width: 30px;
+    height: 30px;
+    transform: translate(-15px,-10px);
+    background: url(/photo/gridBook.png) no-repeat;
+    background-size: 100% 100%;">
+				</div>
+				<div style="width: 85%;border-radius: 10px;
+    flex-direction: column;
+    background: linear-gradient(
+90deg
+, white, transparent);">
+					<div style="align-items:center;">
+						<span style="margin-left:2vw;background: white;
+    border-radius: 50%;
+    padding: 5px;    border: 1px solid #d2d2d2;"><img src="{{post.User.profile}}" style="width:30px; height:30px;border-radius: 50%;"> </span><span style="margin-left:2vw;">{{post.User.nth}}수생 {{post.User.nick}}xx</span> 
+						
+					{% if user.id==post.UserId %}
+						<span onClick="delPost({{post.id}});" style="margin-left: 40px;"><img src="/photo/trash.png" style="width:20px;height:20px;"></span>
+					{% endif %}
+						
+					</div>
+					<div style="margin-left:2vw;font-size:0.6rem;"> {{post.createdAt.getFullYear()}}년 {{post.createdAt.getMonth()+1}}월
+                {{post.createdAt.getDate()}}일 {{post.createdAt.getHours()+9}}시
+                {{post.createdAt.getMinutes()}}분 {{post.createdAt.getSeconds()}}초</div>
+					<div style="padding:2vw;font-size:0.7rem;">
+						{{post.title}}
+					</div>
+					<div style="padding:2vw;">
+						{{post.content}}
+					</div>
+					{% if post.img %}
+						<img src="{{post.img}}" style="width:100%;margin-bottom:1vh;border-radius: 3px;">
+					{% endif %}
+				
+					<div style="padding-left:2vw;padding-bottom: 5vh;">
+						<!--
+						<span onClick="comment({{post.id}});" style="align-items:center;margin-right:1vw;cursor:pointer;"><img src="/photo/message.png" style="width:30px; height:30px;margin-right:1vw;"> 0</span>-->
+						
+						<span onClick="hlike({{post.id}},{{loop.index}});" style="align-items:center;margin-right:1vw;cursor:pointer;">
+							{% if post.tof=='false' %}
+							<img src="/photo/likeBE.png" id="hlike{{loop.index}}"style="width:30px; height:30px;margin-right:1vw;">
+							{% else %}
+														<img src="/photo/likeAF.png" id="hlike{{loop.index}}"style="width:30px; height:30px;margin-right:1vw;">
+
+							{% endif %}
+							<span id="hlikeLength{{loop.index}}">
+							{{post.cnt}}
+							</span></span>
+					</div>
+					<!-- 댓글
+					{% for comment in post %}
+					<div>
+						
+					</div>
+					{% endfor %}
+					-->
+				</div>
 			</div>
+			{% endfor %}
 			
 		</div>
 		
@@ -119,6 +209,41 @@
 		talk.style.borderBottom="0px solid aqua";
 	});
 	
-	
+	function delPost(id){
+		axios.post('/post/delPost',{
+			id:id,
+		}).then((res)=>{
+			location.reload();
+		});
+		
+	}
+	function comment(id){
+		axios.post('/post/',{
+			id:id,
+		});
+		
+	}
+	function glike(id,idx){
+		axios.post('/post/like',{
+			id:id,
+		}).then((res)=>{
+			console.log(res.data.tof);
+			if(res.data.tof=="false"){
+			const glike=document.getElementById(`glike${idx}`);
+			const glikeLength=document.getElementById(`glikeLength${idx}`);
+				glike.src="/photo/likeBE.png"
+				let cnt=Number(glikeLength.textContent);
+				glikeLength.textContent=Number(cnt-1);
+			}
+			else{
+			const glike=document.getElementById(`glike${idx}`);
+			const glikeLength=document.getElementById(`glikeLength${idx}`);
+				console.log(glikeLength);
+				glike.src="/photo/likeAF.png"
+				let cnt=Number(glikeLength.textContent);
+				glikeLength.textContent=Number(cnt+1);
+			}
+		});
+	}
 </script>
 {% endblock %}
