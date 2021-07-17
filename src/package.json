@@ -18,6 +18,7 @@
   },
   "homepage": "https://github.com/rnjsrnrdnjs/STUDENTst#readme",
   "dependencies": {
+    "connect-redis": "^6.0.0",
     "cookie-parser": "^1.4.5",
     "cors": "^2.8.5",
     "cron": "^1.8.2",
@@ -34,8 +35,11 @@
     "mysql2": "^2.2.5",
     "nunjucks": "^3.2.3",
     "passport": "^0.4.1",
+    "passport-google-oauth20": "^2.0.0",
     "passport-kakao": "^1.0.1",
+    "passport-naver": "^1.0.6",
     "pm2": "^5.1.0",
+    "redis": "^3.1.2",
     "sequelize": "^6.6.2",
     "sequelize-cli": "^6.2.0"
   },

@@ -69,7 +69,6 @@ module.exports=(app)=>{
 				}
 				pass[i].cnt=cnt;
 			}
-			console.log(pass);
 			res.render('board',{
 				talk,pass,
 			});
@@ -230,16 +229,33 @@ module.exports=(app)=>{
 	});
 	router.get('/mypost',isLoggedIn,async(req,res,next)=>{
 		try{
-			const myPost=await Post.findAll({
-				include:{
+			const mypost=await Post.findAll({
+				include:[{
 					model:User,
-				},
+				},{
+					model:Like,
+				}],
 				where:{
 					UserId:req.user.id,
 				},
+				order: [['createdAt', 'DESC']],
 			});
+			for(let i in mypost){
+				mypost[i].tof="false";
+				let cnt=0;
+				for(let j in mypost[i].Likes){
+					if(mypost[i].Likes[j].UserId==req.user.id && mypost[i].Likes[j].toggle=="true"){
+						mypost[i].tof="true";
+					}
+					if(mypost[i].Likes[j].toggle=="true"){
+					   cnt++;
+					}
+				}
+				mypost[i].cnt=cnt;
+			}
+			console.log(mypost);
 			res.render('mypost',{
-				myPost
+				mypost
 			});
 		}catch(err){
 			console.error(err);
@@ -304,6 +320,35 @@ module.exports=(app)=>{
 	
 	router.get('/kakao',passport.authenticate('kakao'));
 	router.get('/auth/kakao/callback',passport.authenticate('kakao',{
+		failureRedirect:'/',
+	}),async(req,res)=>{
+		// 추가 로그인 화면 으로 리다이렉트
+		const user=await User.findOne({
+			where:{
+				id:req.user.id,
+			}
+		});
+		if(user.nick)res.redirect('/board');
+		else	
+			res.redirect('/profile');
+	});
+	
+	router.get('/naver',passport.authenticate('naver'));
+	router.get('/auth/naver/callback',passport.authenticate('naver',{
+		failureRedirect:'/',
+	}),async(req,res)=>{
+		// 추가 로그인 화면 으로 리다이렉트
+		const user=await User.findOne({
+			where:{
+				id:req.user.id,
+			}
+		});
+		if(user.nick)res.redirect('/board');
+		else	
+			res.redirect('/profile');
+	});
+	router.get('/google',passport.authenticate('google',{ scope: ['profile','email'] }));
+	router.get('/auth/google/callback',passport.authenticate('google',{
 		failureRedirect:'/',
 	}),async(req,res)=>{
 		// 추가 로그인 화면 으로 리다이렉트

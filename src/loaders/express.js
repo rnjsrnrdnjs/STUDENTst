@@ -9,12 +9,21 @@ const helmet = require('helmet');
 const hpp = require('hpp');
 const cors = require('cors')();
 const passport=require('passport');
+const redis=require('redis');
+const RedisStore=require('connect-redis')(session);
+
 
 const router = require('../api');
 const passportConfig=require('../passport');
 
+
+
 module.exports = (app) => {
 	dotenv.config();
+	const redisClient=redis.createClient({
+	url:`redis://${process.env.REDIS_HOST}:${process.env.REDIS_PORT}`,
+	password:process.env.REDIS_PASSWORD,
+	});
 	passportConfig();
 	
     app.set('view engine', 'html');
@@ -22,7 +31,6 @@ module.exports = (app) => {
         express: app,
         watch: true,
     });
-    /*
     const sessionMiddleware = session({
         resave: false,
         saveUninitialized: false,
@@ -33,7 +41,6 @@ module.exports = (app) => {
         },
         store: new RedisStore({ client: redisClient }),
     });
-	*/
     /*  https를 사용해야하는경우 
 	if(process.env.NODE_ENV==='production'){
 		sessionMiddleware.proxy=true;
@@ -56,15 +63,7 @@ module.exports = (app) => {
     app.use(express.urlencoded({ extended: false }));
     app.use(cookieParser(process.env.COOKIE_SECRET));
     //app.use(sessionMiddleware);
-	 app.use(session({
-        resave: false,
-        saveUninitialized: false,
-        secret: process.env.COOKIE_SECRET,
-        cookie: {
-            httpOnly: true,
-            secure: false,
-        },
-    }));
+	 app.use(sessionMiddleware);
 	app.use(passport.initialize());
 	app.use(passport.session());
 	

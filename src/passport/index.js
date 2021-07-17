@@ -1,5 +1,7 @@
 const passport=require('passport');
 const kakao=require('./kakaoStrategy');
+const naver=require('./naverStrategy');
+const google=require('./googleStrategy');
 const User=require('../models/user');
 
 module.exports=()=>{
@@ -13,4 +15,6 @@ module.exports=()=>{
 	});
 	
 	kakao();
+	google();
+	naver();
 }
